@@ -36,7 +36,7 @@ $numFields = $requested_data["numFields"];
 	<h1>MYX</h1>
 	<h3>Fields</h3>
 
-	<form method="post" action="result_form.php">
+	<form method="post" action="result_form.html.php">
 
 		<?php 
 
@@ -44,11 +44,11 @@ $numFields = $requested_data["numFields"];
 
 		?>
 
-		<div class="container">
+		<div class="container" id="<?php echo $i; ?>">
 			<div class="row">
 				<div class="form-group col-sm-3">
 					<label for="field_type<?php echo $i;?>">Field Type</label>
-					<select class="form-control" id="field_type<?php echo $i; ?>" name="field_type<?php echo $i; ?>">
+					<select class="form-control field-type" id="field_type<?php echo $i; ?>" name="field_type<?php echo $i; ?>">
 						<option value="text">Text</option>
 						<option value="number">Number</option>
 						<option value="email">Email</option>
@@ -72,14 +72,14 @@ $numFields = $requested_data["numFields"];
 			</div>
 
 			<div class="row">
-				<div class="form-group offset-sm-3 optional option-checkbox">
-					<label>Option</label>
+				<div class="form-group offset-sm-3 optional checkbox<?php echo $i; ?>">
+					<label>Checks</label>
 					<input type="text" class="form-control">
 				</div>
 			</div>
 
 			<div class="row">
-				<div class="form-group offset-sm-3 optional option-radio">
+				<div class="form-group offset-sm-3 optional radio<?php echo $i; ?>">
 					<label>Option</label>
 					<input type="text" class="form-control">
 				</div>
@@ -98,5 +98,8 @@ $numFields = $requested_data["numFields"];
 	</form>
 
 </div>
-</body>
 
+<script src="js/fields.js"></script>
+
+</body>
+</html>

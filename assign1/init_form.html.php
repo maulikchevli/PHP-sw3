@@ -13,7 +13,7 @@
 
 <div class="container">
 	<h1>MYX</h1>
-	<form action="fields_form.php" method="post" enctype="multipart/form-data">
+	<form action="fields_form.html.php" method="post" enctype="multipart/form-data">
 		<div class="form-group">
 			<label for="header">Header:</label>
 			<input type="text" class="form-control" id="header" placeholder="Form header" name="header" required>
