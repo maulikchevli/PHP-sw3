@@ -43,7 +43,7 @@
 
 		<div class="form-group">
 			<label for="font_size">Font Size:</label>
-			<input type="number" class="form-control" id="font_size" name="font_size" placeholder="Size of Font" required>
+			<input type="number" class="form-control" id="font_size" name="font_size" placeholder="Size of Font" required value="12">
 		</div>
 
 		<div class="form-group">

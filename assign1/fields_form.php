@@ -26,6 +26,9 @@ $numFields = $requested_data["numFields"];
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+	<!-- css files -->
+	<link rel="stylesheet" href="css/fields.css">
 </head>
 <body>
 
@@ -41,30 +44,47 @@ $numFields = $requested_data["numFields"];
 
 		?>
 
-		<div class="row">
-			<div class="form-group col-sm-3">
-				<label for="field_type<?php echo $i;?>">Field Type</label>
-				<select class="form-control" id="field_type<?php echo $i; ?>" name="field_type<?php echo $i; ?>">
-					<option value="text">Text</option>
-					<option value="number">Number</option>
-					<option value="email">Email</option>
-					<option value="password">Password</option>
-					<option value="color">Color</option>
-					<option value="file">File</option>
-					<option value="checkbox">Checkbox</option>
-					<option value="radio">Radio</option>
-				</select>
+		<div class="container">
+			<div class="row">
+				<div class="form-group col-sm-3">
+					<label for="field_type<?php echo $i;?>">Field Type</label>
+					<select class="form-control" id="field_type<?php echo $i; ?>" name="field_type<?php echo $i; ?>">
+						<option value="text">Text</option>
+						<option value="number">Number</option>
+						<option value="email">Email</option>
+						<option value="password">Password</option>
+						<option value="color">Color</option>
+						<option value="file">File</option>
+						<option value="checkbox">Checkbox</option>
+						<option value="radio">Radio</option>
+					</select>
+				</div>
+
+				<div class="form-group col-sm-6">
+					<label for="field_name<?php echo $i; ?>">Field Name</label>
+					<input type="text" class="form-control" name="field_name<?php echo $i; ?>" id="field_name<?php echo $i; ?>">
+				</div>
+
+				<div class="form-group col-sm-3">
+					<input type="checkbox" value="required" name="required<?php echo $i; ?>" id="required<?php echo $i; ?>">
+					<label for="required<?php echo $i; ?>">Required</label>
+				</div>
 			</div>
 
-			<div class="form-group col-sm-6">
-				<label for="field_name<?php echo $i; ?>">Field Name</label>
-				<input type="text" class="form-control" name="field_name<?php echo $i; ?>" id="field_name<?php echo $i; ?>">
+			<div class="row">
+				<div class="form-group offset-sm-3 optional option-checkbox">
+					<label>Option</label>
+					<input type="text" class="form-control">
+				</div>
 			</div>
 
-			<div class="form-group col-sm-3">
-				<input type="checkbox" value="required" name="required<?php echo $i; ?>" id="required<?php echo $i; ?>">
-				<label for="required<?php echo $i; ?>">Required</label>
+			<div class="row">
+				<div class="form-group offset-sm-3 optional option-radio">
+					<label>Option</label>
+					<input type="text" class="form-control">
+				</div>
 			</div>
+
 		</div>
 
 		<?php
