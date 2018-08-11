@@ -72,16 +72,25 @@ $numFields = $requested_data["numFields"];
 			</div>
 
 			<div class="row">
-				<div class="form-group offset-sm-3 optional checkbox<?php echo $i; ?>">
+				<div class="form-group offset-sm-3 optional checkbox<?php echo $i; ?>" id="checkbox<?php echo $i; ?>">
 					<label>Checks</label>
 					<input type="text" class="form-control">
 				</div>
 			</div>
 
 			<div class="row">
-				<div class="form-group offset-sm-3 optional radio<?php echo $i; ?>">
+				<div class="form-group offset-sm-3 optional radio<?php echo $i; ?>" id="radio<?php echo $i; ?>">
 					<label>Option</label>
 					<input type="text" class="form-control">
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="optional offset-sm-3 add-option" id="add<?php echo $i; ?>">
+					<button type="button" class="btn btn-secondary">Add choices</button>
+				</div>
+				<div class="optional remove-option" id="remove<?php echo $i; ?>">
+					<button type="button" class="btn btn-secondary">Remove last choice</button>
 				</div>
 			</div>
 
