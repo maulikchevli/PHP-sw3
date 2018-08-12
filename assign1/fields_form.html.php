@@ -1,6 +1,7 @@
 <?php
 
-// TODO: Think on radio-buttons and checkboxes
+// TODO: Integrate checkboxes and radios in result form
+// TODO: fix bug - bgimage is not found
 
 session_start();
 require 'upload.php';
@@ -74,14 +75,14 @@ $numFields = $requested_data["numFields"];
 			<div class="row">
 				<div class="form-group offset-sm-3 optional checkbox<?php echo $i; ?>" id="checkbox<?php echo $i; ?>">
 					<label>Checks</label>
-					<input type="text" class="form-control">
+					<input type="text" name="<?php echo $i;?>checks[]" class="form-control">
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="form-group offset-sm-3 optional radio<?php echo $i; ?>" id="radio<?php echo $i; ?>">
 					<label>Option</label>
-					<input type="text" class="form-control">
+					<input type="text" class="form-control" name="<?php echo $i;?>radios[]">
 				</div>
 			</div>
 

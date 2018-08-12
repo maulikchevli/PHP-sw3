@@ -56,26 +56,73 @@ $image_path = "./upload/" . $_SESSION["image"];
 		<h1 style="font-size: 3em;"><?php echo $data["header"] ?></h1>
 
 		<div class="jumbotron">
-			<?php echo $data["info"] ?>
+			<pre><?php echo $data["info"] ?></pre>
 		</div>
 
 		<form method="post">
 			<?php 
-				for($i=0;$i < $numFields; $i++) {
+			for($i=0;$i < $numFields; $i++) {
 			?>
 
-			<div class="form-group row">
-				<label class="col-sm-2" for="<?php echo ($fields['field_name' . $i]); ?>"><?php  echo($fields["field_name" . $i]); ?></label>
-				<input class="form-control col-sm-9" type="<?php echo ($fields['field_type' . $i]); ?>" id="<?php echo ($fields['field_name' . $i]); ?>" name="<?php echo ($fields['field_name' . $i]); ?>"
-					<?php 
-						if ($fields['required' . $i]) {
-							echo "required";
+				<div class="form-group row">
+					<label class="col-sm-2" for="<?php echo ($fields['field_name' . $i]); ?>"><?php  echo($fields["field_name" . $i]); ?></label>
+
+					<?php
+					$field_type = $fields['field_type' . $i];
+					if ($field_type  == "checkbox") {
+						foreach ($fields[$i . "checks"] as $option) {
+					?>
+
+							<input
+								type="<?php echo $field_type; ?>"
+								name="<?php echo ($i . 'checks[]'); ?>"
+							>
+							<label class="col-sm2"> <?php echo $option ?> </label>
+					<?php
 						}
-					?>>
-			</div>
+					}
+
+					elseif ($field_type == "radio") {
+						foreach ($fields[$i . "radios"] as $option) {
+					?>
+							<input
+								type="<?php echo $field_type; ?>"
+								name="<?php echo ($i . 'radios[]'); ?>"
+								<?php 
+									if ($fields['required' . $i]) {
+										echo "required";
+									}
+								?>
+							>
+							<label class="col-sm2"> <?php echo $option ?> </label>
+					<?php
+						}
+					}
+					?>
+
+					<?php
+					if ($field_type  != "checkbox" && $field_type != "radio") {
+					// dont know why else id not working
+					?>
+						<input 
+							class="form-control col-sm-9" 
+							type="<?php echo ($fields['field_type' . $i]); ?>" 
+							id="<?php echo ($fields['field_name' . $i]); ?>" 
+							name="<?php echo ($fields['field_name' . $i]); ?>"
+							<?php 
+								if ($fields['required' . $i]) {
+									echo "required";
+								}
+							?>
+						>
+					<?php
+					}
+					?>
+
+				</div>
 
 			<?php
-				}
+			}
 			?>
 
 			<button type="submit" class="btn btn-primary">Submit</button>
