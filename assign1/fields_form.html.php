@@ -1,8 +1,5 @@
 <?php
 
-// TODO: Integrate checkboxes and radios in result form
-// TODO: fix bug - bgimage is not found
-
 session_start();
 require 'upload.php';
 
