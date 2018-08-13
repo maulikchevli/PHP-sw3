@@ -1,0 +1,24 @@
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	background-color: #e3f2fd20;
+}
+
+main {
+	flex: 1 0 auto;
+}
+
+header {
+	background-color: #e3f2fd;
+}
+
+footer {
+	flex-shrink: 0;
+	background-color: #e3f2fd;
+}
+

@@ -32,10 +32,13 @@ $image_path = "./upload/" . $_SESSION["image"];
 			font-family: <?php echo $data["font_family"]; ?>;
 			font-size: <?php echo $data["font_size"]; ?>px;
 			color: <?php echo $data["font_color"]; ?>;
+
+			display: flex;
+			flex-direction: column;
 		}
 
 		.form-body {
-			height: 100%;
+			flex: 1 0 auto;
 			background-image: url(<?php echo $image_path; ?>);
 		}
 
@@ -48,15 +51,19 @@ $image_path = "./upload/" . $_SESSION["image"];
 			background-color: <?php echo ($data["font_color"] . "af"); ?>;
 			border-color: <?php echo($data["bgcolor"] . "af"); ?>;
 		}
+
+		footer {
+			flex-shrink: 0;
+		}
 	</style>
 </head>
 <body> 
 
-	<div class="container form-body"> 
+	<div class="container form-body wrapper"> 
 		<h1 style="font-size: 3em;"><?php echo $data["header"] ?></h1>
 
 		<div class="jumbotron">
-			<pre><?php echo $data["info"] ?></pre>
+			<pre class="lead"><?php echo $data["info"] ?></pre>
 		</div>
 
 		<form method="post">
@@ -72,12 +79,14 @@ $image_path = "./upload/" . $_SESSION["image"];
 					if ($field_type  == "checkbox") {
 						foreach ($fields[$i . "checks"] as $option) {
 					?>
-
-							<input
-								type="<?php echo $field_type; ?>"
-								name="<?php echo ($i . 'checks[]'); ?>"
-							>
-							<label class="col-sm2"> <?php echo $option ?> </label>
+							<div class="form-check-inline">
+								<input
+									type="checkbox"
+									name="<?php echo ($i . 'checks[]'); ?>"
+									class="form-check-input"
+								>
+								<label class="form-check-label"> <?php echo $option ?> </label>
+							</div>
 					<?php
 						}
 					}
@@ -85,16 +94,19 @@ $image_path = "./upload/" . $_SESSION["image"];
 					elseif ($field_type == "radio") {
 						foreach ($fields[$i . "radios"] as $option) {
 					?>
-							<input
-								type="<?php echo $field_type; ?>"
-								name="<?php echo ($i . 'radios[]'); ?>"
-								<?php 
-									if ($fields['required' . $i]) {
-										echo "required";
-									}
-								?>
-							>
-							<label class="col-sm2"> <?php echo $option ?> </label>
+							<div class="form-check-inline">
+								<input
+									type="radio"
+									name="<?php echo ($i . 'radios[]'); ?>"
+									class="form-check-input"
+									<?php 
+										if ($fields['required' . $i]) {
+											echo "required";
+										}
+									?>
+								>
+								<label class="form-check-label"> <?php echo $option ?> </label>
+							</div>
 					<?php
 						}
 					}
@@ -128,11 +140,14 @@ $image_path = "./upload/" . $_SESSION["image"];
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
 
-		<footer class="page-footer font-small unique-color-dark pt-4">
-			<div class="footer-copyright text-center py-3">
-				<?php echo $data["footer"]; ?>
-			</div>
-		</footer>
+		<div class="text-center py-3">
+			<?php echo $data["footer"]; ?>
+			<hr>
+		</div>
 	</div>
+
+	<footer class="page-footer font-small unique-color-dark pt-4">
+		<?php require 'footer.html.php'; ?>
+	</footer>
 </body>
 <html>

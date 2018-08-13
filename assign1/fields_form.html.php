@@ -29,85 +29,94 @@ $numFields = $requested_data["numFields"];
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
 	<!-- css files -->
+	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" href="css/fields.css">
 </head>
-<body>
+<body> 
+	
+	<header class="container-fluid sticky-top">
+		<?php require 'header.html.php'; ?>
+	</header>
 
-<div class="container"> 
-	<h1>MYX</h1>
-	<h3>Fields</h3>
+	<main class="container"> 
 
-	<form method="post" action="result_form.html.php">
+		<h3>Fields</h3>
 
-		<?php 
+		<form method="post" action="result_form.html.php">
 
-		for ($i=0; $i<$numFields; $i++) {
+			<?php 
 
-		?>
+			for ($i=0; $i<$numFields; $i++) {
 
-		<div class="container" id="<?php echo $i; ?>">
-			<div class="row">
-				<div class="form-group col-sm-3">
-					<label for="field_type<?php echo $i;?>">Field Type</label>
-					<select class="form-control field-type" id="field_type<?php echo $i; ?>" name="field_type<?php echo $i; ?>">
-						<option value="text">Text</option>
-						<option value="number">Number</option>
-						<option value="email">Email</option>
-						<option value="password">Password</option>
-						<option value="color">Color</option>
-						<option value="file">File</option>
-						<option value="checkbox">Checkbox</option>
-						<option value="radio">Radio</option>
-					</select>
+			?>
+
+				<div class="container" id="<?php echo $i; ?>">
+					<div class="form-row">
+						<div class="form-group col-sm-3">
+							<label for="field_type<?php echo $i;?>">Field Type</label>
+							<select class="form-control field-type" id="field_type<?php echo $i; ?>" name="field_type<?php echo $i; ?>">
+								<option value="text">Text</option>
+								<option value="number">Number</option>
+								<option value="email">Email</option>
+								<option value="password">Password</option>
+								<option value="color">Color</option>
+								<option value="file">File</option>
+								<option value="checkbox">Checkbox</option>
+								<option value="radio">Radio</option>
+							</select>
+						</div>
+
+						<div class="form-group col-sm-6">
+							<label for="field_name<?php echo $i; ?>">Field Name</label>
+							<input type="text" class="form-control" name="field_name<?php echo $i; ?>" id="field_name<?php echo $i; ?>">
+						</div>
+
+						<div class="form-group col-sm-3">
+							<input type="checkbox" value="required" name="required<?php echo $i; ?>" id="required<?php echo $i; ?>">
+							<label for="required<?php echo $i; ?>">Required</label>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-group offset-sm-3 optional checkbox<?php echo $i; ?>" id="checkbox<?php echo $i; ?>">
+							<label>Checks</label>
+							<input type="text" name="<?php echo $i;?>checks[]" class="form-control">
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-group offset-sm-3 optional radio<?php echo $i; ?>" id="radio<?php echo $i; ?>">
+							<label>Option</label>
+							<input type="text" class="form-control" name="<?php echo $i;?>radios[]">
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="optional offset-sm-3 add-option" id="add<?php echo $i; ?>">
+							<button type="button" class="btn btn-secondary">Add choices</button>
+						</div>
+						<div class="optional offset-sm-1 remove-option" id="remove<?php echo $i; ?>">
+							<button type="button" class="btn btn-secondary">Remove last choice</button>
+						</div>
+					</div>
+
 				</div>
 
-				<div class="form-group col-sm-6">
-					<label for="field_name<?php echo $i; ?>">Field Name</label>
-					<input type="text" class="form-control" name="field_name<?php echo $i; ?>" id="field_name<?php echo $i; ?>">
-				</div>
+			<?php
 
-				<div class="form-group col-sm-3">
-					<input type="checkbox" value="required" name="required<?php echo $i; ?>" id="required<?php echo $i; ?>">
-					<label for="required<?php echo $i; ?>">Required</label>
-				</div>
-			</div>
+			}
 
-			<div class="row">
-				<div class="form-group offset-sm-3 optional checkbox<?php echo $i; ?>" id="checkbox<?php echo $i; ?>">
-					<label>Checks</label>
-					<input type="text" name="<?php echo $i;?>checks[]" class="form-control">
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="form-group offset-sm-3 optional radio<?php echo $i; ?>" id="radio<?php echo $i; ?>">
-					<label>Option</label>
-					<input type="text" class="form-control" name="<?php echo $i;?>radios[]">
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="optional offset-sm-3 add-option" id="add<?php echo $i; ?>">
-					<button type="button" class="btn btn-secondary">Add choices</button>
-				</div>
-				<div class="optional remove-option" id="remove<?php echo $i; ?>">
-					<button type="button" class="btn btn-secondary">Remove last choice</button>
-				</div>
-			</div>
-
-		</div>
-
-		<?php
-
-		}
-
-		?>
+			?>
 
 
-		<button type="submit" class="btn btn-primary">Submit</button>
-	</form>
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
 
-</div>
+	</main>
+
+	<footer class="page-footer sticky-bottom">
+		<?php require 'footer.html.php'; ?>
+	</footer>
 
 <script src="js/fields.js"></script>
 
