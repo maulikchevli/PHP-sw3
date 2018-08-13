@@ -7,9 +7,12 @@ $requested_data = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
 // store user filled data in session for next page
 $_SESSION["data"] = $requested_data;
-$_SESSION["image"] = $_FILES["bgimage"]["name"];
 
-UploadImage(); // Function in upload.php
+// check if image path is provided by user
+if ($_FILES["bgimage"]["name"]) {
+	$_SESSION["image"] = $_FILES["bgimage"]["name"];
+	UploadImage(); // Function in upload.php
+}
 
 $numFields = $requested_data["numFields"];
 ?>
