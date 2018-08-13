@@ -100,7 +100,7 @@ $image_path = "./upload/" . $_SESSION["image"];
 									name="<?php echo ($i . 'radios[]'); ?>"
 									class="form-check-input"
 									<?php 
-										if ($fields['required' . $i]) {
+										if (isset($fields['required' . $i])) {
 											echo "required";
 										}
 									?>
@@ -122,7 +122,7 @@ $image_path = "./upload/" . $_SESSION["image"];
 							id="<?php echo ($fields['field_name' . $i]); ?>" 
 							name="<?php echo ($fields['field_name' . $i]); ?>"
 							<?php 
-								if ($fields['required' . $i]) {
+								if (isset($fields['required' . $i])) {
 									echo "required";
 								}
 							?>
