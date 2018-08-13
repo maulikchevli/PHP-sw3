@@ -13,6 +13,10 @@ if ($_FILES["bgimage"]["name"]) {
 	$_SESSION["image"] = $_FILES["bgimage"]["name"];
 	UploadImage(); // Function in upload.php
 }
+else {
+	// remove session's image
+	$_SESSION["image"] = "";
+}
 
 $numFields = $requested_data["numFields"];
 ?>
