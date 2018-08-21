@@ -28,43 +28,50 @@
 	<main class="container">
 		<form id="compose" action="send_mail.html.php" method="post">
 			<div class="form-group row">
-				<label for="senderEmail" class="col-sm-2 col-form-label">Sender</label>
+				<label for="receiverEmail" class="col-sm-2 col-form-label">To</label>
 				<div class="col-sm-10">
-					<input id="senderEmail" name="senderEmail" class="form-control" placeholder="Sender Email ID">
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label for="receiverEmail" class="col-sm-2 col-form-label">Reciever</label>
-				<div class="col-sm-10">
-					<input id="receiverEmail" name="receiverEmail" class="form-control" placeholder="Recipient Email ID">
+					<input type="text" id="receiverEmail" name="receiverEmail" class="form-control" placeholder="Recipient Email ID" required>
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label for="ccEmail" class="col-sm-2 col-form-label">CC</label>
 				<div class="col-sm-10">
-					<input id="ccEmail" name="ccEmail" class="form-control" placeholder="CC email ID">
+					<input type="text" id="ccEmail" name="ccEmail" class="form-control" placeholder="CC email ID">
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label for="bccEmail" class="col-sm-2 col-form-label">BCC</label>
 				<div class="col-sm-10">
-					<input id="bccEmail" name="bccEmail" class="form-control" placeholder="BCC email ID">
+					<input type="text" id="bccEmail" name="bccEmail" class="form-control" placeholder="BCC email ID">
 				</div>
 			</div>
 
 			<div class="form-group row">
 				<label for="subject" class="col-sm-2 col-form-label">Subject</label>
 				<div class="col-sm-10">
-					<input id="subject" name="subject" class="form-control" placeholder="Subject">
+					<input type="text" id="subject" name="subject" class="form-control" placeholder="Subject">
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="content">Content</label>
-				<textarea rows="20" id="content" name="content" class="form-control" placeholder="Write your mail here..."></textarea>
+				<textarea rows="20" id="content" name="content" class="form-control" placeholder="Write your mail here..." required></textarea>
+			</div>
+
+			<div class="form-group row">
+				<label for="senderEmail" class="col-sm-2 col-form-label">Your Email</label>
+				<div class="col-sm-10">
+					<input type="text" id="senderEmail" name="senderEmail" class="form-control" placeholder="Sender Email ID" required>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="password" class="col-sm-2 col-form-label">Password</label>
+				<div class="col-sm-10">
+					<input type="password" id="password" name="password" class="form-control" placeholder="Password for email" required>
+				</div>
 			</div>
 		</form>
 	</main>
