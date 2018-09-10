@@ -18,7 +18,7 @@ $recepients = $to . "," . $bcc;
 $subject = $mailData["subject"];
 $body = $mailData["content"];
  
-$host = "smtp.gmail.com";
+$host = "tls://smtp.gmail.com";
 $username = $mailData["senderEmail"];
 $password = $mailData["password"];
 $port = "587";
@@ -28,14 +28,15 @@ $headers = array ('From' => $from,
 	'Subject' => $subject,
 	'CC' => $cc);
 
-$smtp = Mail::factory('smtp',array (
+$smtp = @Mail::factory('smtp',array (
 		'host' => $host,
+		'debug'=> true,
 		'port' => $port,
 		'auth' => true,
 		'username' => $username,
 		'password' => $password));
  
-$mail = $smtp->send($recepients, $headers, $body);
+$mail = @$smtp->send($recepients, $headers, $body);
 ?>
 
 <!DOCTYPE html>
