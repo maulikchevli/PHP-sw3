@@ -20,25 +20,25 @@
 	</header>
 
 	<main class="container">
-		<?php
-		// check with isset function
-		if ( isset($_SESSION["student"])) {
-			if ( $_SESSION["hasRegistered"]) {
-				// TODO Provide options to update and delete
-				echo "You have registered for this sem";
-				require_once 'courseDetails.html.php';
-			}
-			else {
-				// TODO Display form to insert
-				echo "Register fo this sem mate";
-				require_once 'registerForm.html';
-				echo "hello";
-			}
-		}
-		else {
-			echo "Login to see your course";
-		}
-		?>
+		<h3>Update Details</h3>
+
+		<a href="deleteRegistration.php">Delete registration</a>
+
+		<form method="post" action="updateRegistration.php">
+			<div class="form-group">
+				<label for="elective">Elective</label>
+				<input type="text" class="form-control" id="elective" name="elective" placeholder="Choose your elective">
+			</div>
+
+			<div class="form-group">
+				<label for="club">Clubs</label>
+				<input type="text" class="form-control" id="club" name="club" placeholder="Choose the club you want to join">
+			</div>
+
+			<button type="submit" class="btn btn-outline-success">
+				Update
+			</button>
+		</form>
 	</main>
 
 	<footer class="footer">
@@ -49,4 +49,3 @@
 
 </body>
 </html>
-

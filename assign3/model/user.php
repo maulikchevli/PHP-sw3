@@ -126,6 +126,28 @@ Class User {
 	}
 
 	public function deleteRegistration() {
+		$db_delegate = new dbConnection();
+		if ( $db_delegate->getError()) {
+			$this->errors[] = $db_delegate->getError();
+			return '-1';
+		}
+
+		$sql_query = "delete from course where rollNum='$this->rollNum'";
+		$result = $db_delegate->update_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->errors[] = $db_delegate->getError();
+			return '-4';
+		}
+	
+		$sql_query = "update student set registeredCourse=0 where rollNum='$this->rollNum'";
+		$result = $db_delegate->update_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->errors[] = $db_delegate->getError();
+			return '-3';
+		}
+
+		$this->hasRegistered = false;
+		return '0';
 	}
 }
 
