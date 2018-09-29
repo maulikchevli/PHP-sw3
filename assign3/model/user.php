@@ -15,6 +15,10 @@ Class User {
 	private $email;
 	private $hasRegistered;
 
+	public function getRollNum() {
+		return $this->rollNum;
+	}
+
 	public function getRegistrationStatus() {
 		return $this->hasRegistered;
 	}
@@ -122,7 +126,25 @@ Class User {
 		return '0';
 	}
 
-	public function updateRegistration() {
+	public function updateRegistration($details) {
+		$elective = $details['elective'];
+		$club = $details['club'];
+		
+		$db_delegate = new dbConnection();
+		if ( $db_delegate->getError()) {
+			$this->errors[] = $db_delegate->getError();
+			return '-1';
+		}
+
+		$sql_query = "update course set elective='$elective', club='$club' 
+		              where rollNum='$this->rollNum'";
+		$result = $db_delegate->update_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->errors[] = $db_delegate->getError();
+			return '-3';
+		}
+
+		return '0';
 	}
 
 	public function deleteRegistration() {
@@ -148,6 +170,23 @@ Class User {
 
 		$this->hasRegistered = false;
 		return '0';
+	}
+
+	public function getRegistrationDetails($rollNum) {
+		$db_delegate = new dbConnection();
+		if ( $db_delegate->getError()) {
+			$this->errors[] = $db_delegate->getError();
+			return '-1';
+		}
+
+		$sql_query = "select * from course where rollNum='$rollNum'";
+		$result = $db_delegate->select_query($sql_query);
+		if ($db_delegate->getError()) {
+			$this->errors[] = $db_delegate->getError();
+			return '-2';
+		}
+
+		return $result->fetch_assoc();
 	}
 }
 

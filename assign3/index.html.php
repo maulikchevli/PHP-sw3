@@ -1,3 +1,8 @@
+<?php
+require_once 'model/User.php';
+// Used in courseDetails.html.php
+?>
+
 <!DOCTYPE html>
 <html land="en">
 <head>
@@ -24,15 +29,10 @@
 		// check with isset function
 		if ( isset($_SESSION["student"])) {
 			if ( $_SESSION["hasRegistered"]) {
-				// TODO Provide options to update and delete
-				echo "You have registered for this sem";
 				require_once 'courseDetails.html.php';
 			}
 			else {
-				// TODO Display form to insert
-				echo "Register fo this sem mate";
 				require_once 'registerForm.html';
-				echo "hello";
 			}
 		}
 		else {
