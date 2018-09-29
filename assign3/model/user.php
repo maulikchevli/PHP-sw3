@@ -9,6 +9,15 @@ require_once 'dbConnection.php';
 
 Class User {
 	private $errors;
+	
+	private $name;
+	private $rollNum;
+	private $email;
+	private $hasRegistered;
+
+	public function getRegistrationStatus() {
+		return $this->hasRegistered;
+	}
 
 	public function getError() {
 		return $this->errors;
@@ -20,9 +29,10 @@ Class User {
 	 * '-2' if query fails
 	 */
 	public function register($details) {
-		$name = $details["name"];
-		$rollNum = $details["rollNum"];
-		$email = $details["email"];
+		$this->name = $details["name"];
+		$this->rollNum = $details["rollNum"];
+		$this->email = $details["email"];
+		$this->hasRegistered = false;
 
 		$password = password_hash( $details["password"], PASSWORD_DEFAULT);
 		// TODO confirm password
@@ -34,7 +44,7 @@ Class User {
 		}
 
 		$sql_query = "insert into student (rollNum, name, email, password) values
-                      ('$rollNum', '$name', '$email', '$password')";
+                      ('$this->rollNum', '$this->name', '$this->email', '$password')";
 
 		// TODO Check if rollNum is already present in DB
 		$result = $db_delegate->insert_query( $sql_query);
@@ -43,10 +53,6 @@ Class User {
 			return '-2';
 		}
 
-		// TODO add to session User object
-		session_start();
-		$_SESSION["rollNum"] = $rollNum;
-		
 		return '0';
 	}
 
@@ -78,15 +84,42 @@ Class User {
 			return '-4';
 		}
 
-		// TODO add to session User object
-		session_start();
-		$_SESSION["rollNum"] = $rollNum;
-		$_SESSION["hasRegistered"] = $db_userInfo["registeredCourse"];
+		$this->name = $db_userInfo['name'];
+		$this->email = $db_userInfo['email'];
+		$this->rollNum = $rollNum;
+		$this->hasRegistered = $db_userInfo['registeredCourse'];
 
 		return '0';
 	}
 
-	public function courseRegistration() {
+	public function courseRegistration($details) {
+		$elective = $details['elective'];
+		$club = $details['club'];
+
+		$db_delegate = new dbConnection();
+		if ( $db_delegate->getError()) {
+			$this->errors[] = $db_delegate->getError();
+			return '-1';
+		}
+
+		$sql_query = "insert into course values
+		              ('$this->rollNum', '$elective', '$club')";
+
+		$result = $db_delegate->insert_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->errors[] = $db_delegate->getError();
+			return '-2';
+		}
+
+		$sql_query = "update student set registeredCourse=1 where rollNum='$this->rollNum'";
+		$result = $db_delegate->update_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->errors[] = $db_delegate->getError();
+			return '-3';
+		}
+
+		$this->hasRegistered = true;
+		return '0';
 	}
 
 	public function updateRegistration() {

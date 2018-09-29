@@ -11,7 +11,7 @@
 		<ul class="navbar-nav ml-auto">
 			<?php
 			session_start();
-			if ( isset( $_SESSION["rollNum"])) {
+			if ( isset( $_SESSION["student"])) {
 			?>
 				
 				<li class="nav-item">

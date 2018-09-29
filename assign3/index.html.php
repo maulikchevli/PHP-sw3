@@ -21,13 +21,21 @@
 
 	<main class="container">
 		<?php
-		if ( $_SESSION["hasRegistered"]) {
-			// TODO Provide options to update and delete
-			echo "You have registered for this sem";
+		// check with isset function
+		if ( isset($_SESSION["student"])) {
+			if ( $_SESSION["hasRegistered"]) {
+				// TODO Provide options to update and delete
+				echo "You have registered for this sem";
+			}
+			else {
+				// TODO Display form to insert
+				echo "Register fo this sem mate";
+				require_once 'registerForm.html';
+				echo "hello";
+			}
 		}
 		else {
-			// TODO Display form to insert
-			echo "Register fo this sem mate";
+			echo "Login to see your course";
 		}
 		?>
 	</main>

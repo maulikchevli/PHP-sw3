@@ -12,6 +12,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		echo "NOPE' jhj ";
 	}
 	else {
+		// add student object to session
+		session_start();
+		$_SESSION["student"] = $student;
+		$_SESSION["hasRegistered"] = $student->getRegistrationStatus();
+
 		// redirect to homepage
 		header('Location: index.html.php');
 	}

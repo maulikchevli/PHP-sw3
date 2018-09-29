@@ -34,6 +34,13 @@ class dbConnection {
 		}
 	}
 
+	public function update_query($sql) {
+		if ($this->conn->query($sql) === FALSE) {
+			$this->error = 'Could not perform update query';
+			return; // -2 for Failed query
+		}
+	}
+
 	public function __destruct() {
 		$this->conn->close();
 	}
