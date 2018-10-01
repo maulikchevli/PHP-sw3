@@ -11,9 +11,8 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST") {
 	$queryResult = $student->updateRegistration($courseDetails);
 
 	if ( $queryResult != '0') {
-		echo $queryResult;
-		echo "Failure ... ";
-		var_dump($student->getError());
+		$_SESSION['flashMessages'] = $student->getError();
+		header( 'Location: index.html.php');
 	}
 	else {
 		$_SESSION['hasRegistered'] = $student->getRegistrationStatus();

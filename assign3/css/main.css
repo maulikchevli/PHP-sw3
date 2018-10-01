@@ -22,3 +22,9 @@ footer {
 	background-color: rgb(231,253,198);
 }
 
+.flash-message {
+	position: absolute;
+	right: 0px;
+	top: 50px;
+}
+

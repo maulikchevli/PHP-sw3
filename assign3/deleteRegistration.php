@@ -7,8 +7,9 @@ $student = $_SESSION['student'];
 $queryResult = $student->deleteRegistration();
 
 if ( $queryResult != '0') {
-	echo $queryResult;
-	echo "Failure ... ";
+	$_SESSION["flashMessages"] = $student->getError();
+
+	header( 'Location: index.html.php');
 }
 else {
 	$_SESSION['hasRegistered'] = $student->getRegistrationStatus();

@@ -38,12 +38,16 @@ Class User {
 		$this->email = $details["email"];
 		$this->hasRegistered = false;
 
+		if ( $details["password"] != $details["password2"]) {
+			$this->errors = "Password and confirm password not matching";
+			return '-99';
+		}
+
 		$password = password_hash( $details["password"], PASSWORD_DEFAULT);
-		// TODO confirm password
 
 		$db_delegate = new dbConnection();
 		if ( $db_delegate->getError()) {
-			$this->errors[] = $db_delegate->getError();
+			$this->errors = $db_delegate->getError();
 			return '-1';
 		}
 
@@ -51,9 +55,10 @@ Class User {
                       ('$this->rollNum', '$this->name', '$this->email', '$password')";
 
 		// TODO Check if rollNum is already present in DB
+		// DONE - implicitly checked by db ( primary key)
 		$result = $db_delegate->insert_query( $sql_query);
 		if ( $db_delegate->getError()) {
-			$this->errors[] = $db_delegate->getError();
+			$this->errors = $db_delegate->getError();
 			return '-2';
 		}
 
@@ -66,25 +71,25 @@ Class User {
 
 		$db_delegate = new dbConnection();
 		if ( $db_delegate->getError()) {
-			$this->errors[] = $db_delegate->getError();
+			$this->errors = $db_delegate->getError();
 			return '-1';
 		}
 
 		$sql_query = "select * from student where rollNum='$rollNum'";
 		$result = $db_delegate->select_query($sql_query);
 		if ($db_delegate->getError()) {
-			$this->errors[] = $db_delegate->getError();
+			$this->errors = $db_delegate->getError();
 			return '-2';
 		}
 		elseif ( $result->num_rows != 1) {
-			$this->errors[] = "Something buggy in DB";
+			$this->errors = "Wrong password or roll number. Register first before login!";
 			return '-3';
 		}
 
 		$db_userInfo = $result->fetch_assoc();
 
 		if ( !password_verify( $password, $db_userInfo['password'])) {
-			$this->errors[] = "Wrong Password";
+			$this->errors = "Wrong Password";
 			return '-4';
 		}
 
@@ -97,12 +102,13 @@ Class User {
 	}
 
 	public function courseRegistration($details) {
+		// To register student for the course
 		$elective = $details['elective'];
 		$club = $details['club'];
 
 		$db_delegate = new dbConnection();
 		if ( $db_delegate->getError()) {
-			$this->errors[] = $db_delegate->getError();
+			$this->errors = $db_delegate->getError();
 			return '-1';
 		}
 
@@ -111,14 +117,14 @@ Class User {
 
 		$result = $db_delegate->insert_query( $sql_query);
 		if ( $db_delegate->getError()) {
-			$this->errors[] = $db_delegate->getError();
+			$this->errors = $db_delegate->getError();
 			return '-2';
 		}
 
 		$sql_query = "update student set registeredCourse=1 where rollNum='$this->rollNum'";
 		$result = $db_delegate->update_query( $sql_query);
 		if ( $db_delegate->getError()) {
-			$this->errors[] = $db_delegate->getError();
+			$this->errors = $db_delegate->getError();
 			return '-3';
 		}
 
@@ -132,7 +138,7 @@ Class User {
 		
 		$db_delegate = new dbConnection();
 		if ( $db_delegate->getError()) {
-			$this->errors[] = $db_delegate->getError();
+			$this->errors = $db_delegate->getError();
 			return '-1';
 		}
 
@@ -140,7 +146,7 @@ Class User {
 		              where rollNum='$this->rollNum'";
 		$result = $db_delegate->update_query( $sql_query);
 		if ( $db_delegate->getError()) {
-			$this->errors[] = $db_delegate->getError();
+			$this->errors = $db_delegate->getError();
 			return '-3';
 		}
 
@@ -150,21 +156,21 @@ Class User {
 	public function deleteRegistration() {
 		$db_delegate = new dbConnection();
 		if ( $db_delegate->getError()) {
-			$this->errors[] = $db_delegate->getError();
+			$this->errors = $db_delegate->getError();
 			return '-1';
 		}
 
 		$sql_query = "delete from course where rollNum='$this->rollNum'";
 		$result = $db_delegate->update_query( $sql_query);
 		if ( $db_delegate->getError()) {
-			$this->errors[] = $db_delegate->getError();
+			$this->errors = $db_delegate->getError();
 			return '-4';
 		}
 	
 		$sql_query = "update student set registeredCourse=0 where rollNum='$this->rollNum'";
 		$result = $db_delegate->update_query( $sql_query);
 		if ( $db_delegate->getError()) {
-			$this->errors[] = $db_delegate->getError();
+			$this->errors = $db_delegate->getError();
 			return '-3';
 		}
 
@@ -175,14 +181,14 @@ Class User {
 	public function getRegistrationDetails($rollNum) {
 		$db_delegate = new dbConnection();
 		if ( $db_delegate->getError()) {
-			$this->errors[] = $db_delegate->getError();
+			$this->errors = $db_delegate->getError();
 			return '-1';
 		}
 
 		$sql_query = "select * from course where rollNum='$rollNum'";
 		$result = $db_delegate->select_query($sql_query);
 		if ($db_delegate->getError()) {
-			$this->errors[] = $db_delegate->getError();
+			$this->errors = $db_delegate->getError();
 			return '-2';
 		}
 
