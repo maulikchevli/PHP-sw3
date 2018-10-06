@@ -1,42 +1,45 @@
 <?php
+//Import PHPMailer classes into the global namespace
+require_once 'PHPMailer/PHPMailer.php';
+require_once 'PHPMailer/SMTP.php';
 
-//$mailData = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 $mailData = $_POST;
 
-require_once "Mail.php";
- 
-$from = $mailData["senderEmail"];
-$to = $mailData["receiverEmail"];
+//Create a new PHPMailer instance
+$mail = new PHPMailer;
+//Tell PHPMailer to use SMTP
+$mail->isSMTP();
 
-// cc and bcc source : https://raamdev.com/2008/adding-cc-recipients-with-pear-mail/
-$cc = $mailData["ccEmail"];
-$bcc = $mailData["bccEmail"];
+//Enable SMTP debugging
+// 0 = off (for production use)
+// 1 = client messages
+// 2 = client and server messages
+$mail->SMTPDebug = 2;
+//Set the hostname of the mail server
 
-$recepients = $to . "," . $bcc;
-// from above source
+$mail->Host = 'smtp.gmail.com';
+// use
+// $mail->Host = gethostbyname('smtp.gmail.com');
+// if your network does not support SMTP over IPv6
+//Set the SMTP port number - 587 for authenticated TLS, a.k.a. RFC4409 SMTP submission
+$mail->Port = 587;
+$mail->SMTPSecure = 'tls';
+$mail->SMTPAuth = true;
 
-$subject = $mailData["subject"];
-$body = $mailData["content"];
- 
-$host = "tls://smtp.gmail.com";
-$username = $mailData["senderEmail"];
-$password = $mailData["password"];
-$port = "587";
- 
-$headers = array ('From' => $from,
-	'To' => $to,
-	'Subject' => $subject,
-	'CC' => $cc);
+$mail->Username = $mailData["senderEmail"];
+$mail->Password = $mailData["password"];
 
-$smtp = @Mail::factory('smtp',array (
-		'host' => $host,
-		'debug'=> true,
-		'port' => $port,
-		'auth' => true,
-		'username' => $username,
-		'password' => $password));
- 
-$mail = @$smtp->send($recepients, $headers, $body);
+$mail->setFrom($mailData["senderEmail"]);
+$mail->addReplyTo('replyto@example.com', 'First Last');
+
+$mail->addAddress($mailData["receiverEmail"]);
+	$mail->addCC($mailData["ccEmail"]);
+	$mail->addBCC($mailData["bccEmail"]);
+
+$mail->Subject = $mailData["subject"];
+$mail->Body = $mailData["content"];
+$mail->AltBody = 'This is a plain-text message body';
+
 ?>
 
 <!DOCTYPE html>
@@ -68,11 +71,10 @@ $mail = @$smtp->send($recepients, $headers, $body);
 		<h3>Response</h3>
 
 		<?php
-			if (PEAR::isError($mail)) {
-				echo("<p>" . $mail->getMessage() . "</p>");
-			}
-			else {
-				echo("<p>Message successfully sent!</p>");
+			if (!$mail->send()) {
+				echo "<p>" . "Mailer Error: " . $mail->ErrorInfo . "</p>";
+			} else {
+				echo "<p>Message sent!</p>";
 			}
 		?>
 
