@@ -1,7 +1,8 @@
 <?php
-require_once 'model/User.php'; // Used in courseDetails.html.php
-?>
 
+require_once 'model/User.php';
+
+?>
 <!DOCTYPE html>
 <html land="en">
 <head>
@@ -25,23 +26,35 @@ require_once 'model/User.php'; // Used in courseDetails.html.php
 
 	<main class="container">
 		<?php 
-		if( isset( $_SESSION["customer"])) {
-		?>
-			<form method="post" action="uploadFile.php" enctype="multipart/form-data">
-				<div class="form-group">
-					<label for="file">File to Upload</label>
-					<input type="file" id="file" name="file">
-				</div>
+		session_start();
+		$files = $_SESSION["customer"]->getFileNames();
+		$fileDirectory = "./uploads/";
 
-				<button type="submit" class="btn btn-outline-success">
-					Upload File
-				</button>
-			</form>
+		while( $file = $files->fetch_assoc()) {
+			$filePath = $fileDirectory . $file["fileName"];
+			$filePointer = fopen( $filePath, 'r') or die(" Cannot open the file to read");
+			$fileContent = fread( $filePointer, filesize( $filePath));
+		?>
+
+		<!-- Html for Files here -->
+			<div>
+				<h3>
+					<?php echo $file["fileName"]; ?>
+				</h3>
+
+				<hr>
+
+				<a href="editFile.html.php?fileName=<?php echo $file["fileName"]; ?>">
+					Edit
+				</a>
+
+				<pre>
+					<?php echo $fileContent; ?>
+				</pre>
+			</div>
 
 		<?php
-		}
-		else {
-			echo "Login to Upload text files";
+			fclose( $filePointer);
 		}
 		?>
 	</main>
@@ -51,7 +64,7 @@ require_once 'model/User.php'; // Used in courseDetails.html.php
 			<span>NITx Developer</span>
 		</div>
 	</footer>
-
+	
 </body>
 </html>
 

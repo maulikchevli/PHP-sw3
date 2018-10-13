@@ -1,5 +1,15 @@
 <?php
-require_once 'model/User.php'; // Used in courseDetails.html.php
+require_once 'model/User.php';
+// TODO Security: check if file belongs to user
+
+$fileDirectory = "./uploads/";
+$fileName = $_REQUEST["fileName"];
+
+$filePath = $fileDirectory . $fileName;
+
+$filePointer = fopen( $filePath, 'r') or die(" Cannot open the file to read");
+$fileContent = fread( $filePointer, filesize( $filePath));
+
 ?>
 
 <!DOCTYPE html>
@@ -24,26 +34,17 @@ require_once 'model/User.php'; // Used in courseDetails.html.php
 	</header>
 
 	<main class="container">
-		<?php 
-		if( isset( $_SESSION["customer"])) {
-		?>
-			<form method="post" action="uploadFile.php" enctype="multipart/form-data">
-				<div class="form-group">
-					<label for="file">File to Upload</label>
-					<input type="file" id="file" name="file">
-				</div>
+		<h2>
+			<?php echo $fileName; ?>
+		</h2>
+		<hr>
+		<pre>
+			<?php echo $fileContent; ?>
+		</pre>
 
-				<button type="submit" class="btn btn-outline-success">
-					Upload File
-				</button>
-			</form>
-
-		<?php
-		}
-		else {
-			echo "Login to Upload text files";
-		}
-		?>
+		<a href="deleteFile.php?fileName=<?php echo $fileName; ?>">
+			Delete File
+		</a>
 	</main>
 
 	<footer class="footer">

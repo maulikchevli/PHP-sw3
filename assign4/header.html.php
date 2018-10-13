@@ -13,6 +13,11 @@
 			session_start();
 			if ( isset( $_SESSION["customer"])) {
 			?>
+				<li class="nav-item">
+					<a class="nav-link" href="displayFiles.html.php">
+						<?php echo $_SESSION["customer"]->getRollNum(); ?>
+					</a>
+				</li>
 				
 				<li class="nav-item">
 					<a class="nav-link" href="logout.php">Log Out</a>

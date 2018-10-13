@@ -10,8 +10,8 @@ require_once 'dbConnection.php';
 Class User {
 	private $errors;
 	
+	public $rollNum;
 	private $name;
-	private $rollNum;
 	private $email;
 
 	public function getRollNum() {
@@ -90,6 +90,53 @@ Class User {
 		$this->name = $db_userInfo['name'];
 		$this->email = $db_userInfo['email'];
 		$this->rollNum = $rollNum;
+
+		return '0';
+	}
+
+	public function logFileName( $filename) {
+		$db_delegate = new dbConnection();
+		if ( $db_delegate->getError()) {
+			$this->errors = $db_delegate->getError();
+			return '-1';
+		}
+
+		$sql_query = "insert into files values ('$this->rollNum', '$filename')";
+		$result = $db_delegate->insert_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->errors = $db_delegate->getError();
+			return '-2';
+		}
+
+		return '0';
+	}
+
+	public function getFileNames() {
+		$db_delegate = new dbConnection();
+		if ( $db_delegate->getError()) {
+			$this->errors = $db_delegate->getError();
+			return '-1';
+		}
+
+		$sql_query = "select fileName from files where rollNum='$this->rollNum'";
+		$result = $db_delegate->select_query($sql_query);
+		
+		return $result;
+	}
+
+	public function deleteFileName( $filename) {
+		$db_delegate = new dbConnection();
+		if ( $db_delegate->getError()) {
+			$this->errors = $db_delegate->getError();
+			return '-1';
+		}
+
+		$sql_query = "delete from files where fileName='$filename'";
+		$result = $db_delegate->update_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->errors = $db_delegate->getError();
+			return '-2';
+		}
 
 		return '0';
 	}
