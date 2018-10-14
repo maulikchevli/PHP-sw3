@@ -10,6 +10,7 @@ $filePath = $fileDirectory . $fileName;
 $filePointer = fopen( $filePath, 'r') or die(" Cannot open the file to read");
 $fileContent = fread( $filePointer, filesize( $filePath));
 
+fclose( $filePointer);
 ?>
 
 <!DOCTYPE html>
@@ -48,6 +49,20 @@ $fileContent = fread( $filePointer, filesize( $filePath));
 			<button type="submit" class="btn btn-primary">
 				Update File
 			</button>
+		</form>
+		<hr>
+		<form method="post" action="appendInFile.php?fileName=<?php echo $fileName; ?>">
+			<div class="form-group">
+				<label for="position">Position</label>
+				<input type="number" class="form-control col-2" name="position" id="position">
+			</div>
+
+			<div class="form-group">
+				<label for="toAppend">Text to append</label>
+				<textarea rows="5" type="text" class="form-control" name="toAppend" id="toAppend"></textarea>
+			</div>
+
+			<button type="submit" class="btn btn-outline-primary">Append</button>
 		</form>
 	</main>
 

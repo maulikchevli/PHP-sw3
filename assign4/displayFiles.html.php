@@ -43,8 +43,9 @@ require_once 'model/User.php';
 						<?php echo $file["fileName"]; ?>
 					</h3>
 
-					<form class="form-inline col">
-						<input type="text" name="searchStr" class="form-control-sm">
+					<!-- Search in file -->
+					<form class="form-inline col" action="searchFile.php?fileName=<?php echo $file['fileName']; ?>" method="post">
+						<input type="text" name="strToSearch" class="form-control-sm">
 						<button type="submit" class="btn btn-primary btn-sm">Search</button>
 					</form>
 				</div>
@@ -52,10 +53,6 @@ require_once 'model/User.php';
 				<div class="row">
 					<a href="editFile.html.php?fileName=<?php echo $file["fileName"]; ?>" class="col">
 						Edit
-					</a>
-
-					<a href="" class="col">
-						Append
 					</a>
 				</div>
 

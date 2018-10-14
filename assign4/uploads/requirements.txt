@@ -1,4 +1,4 @@
-PEAR::Mail
+PEAR:HAHA:Mail
 # pear install -a Mail
 
 / hey there /

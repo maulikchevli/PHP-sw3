@@ -40,4 +40,31 @@ function DeleteFile( $fileName, $customer) {
 	return "0";
 }
 
+function AppendToFile( $fileName, $pos, $toAppend) {
+	$filePath = "./uploads/" . $fileName;
+	$maxPos = filesize( $filePath);
+
+	if ( $pos > $maxPos) {
+		return "Position exceeds..";
+	}
+
+	$filePointer = fopen( $filePath, 'r+');
+	$fileContent = fread( $filePointer, $maxPos);
+
+	// place file pointer on start position
+	rewind( $filePointer);
+
+	// https://stackoverflow.com/questions/8251426/insert-string-at-specified-position
+	$newContent = substr_replace( $fileContent, $toAppend, $pos, 0);
+
+	if ( fwrite( $filePointer, $newContent)) {
+		fclose( $filePointer);
+		return "Sucessfully appended the text!";
+	}
+	else {
+		fclose( $filePointer);
+		return "Could not append";
+	}
+}
+
 ?>
