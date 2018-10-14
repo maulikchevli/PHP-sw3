@@ -34,17 +34,21 @@ $fileContent = fread( $filePointer, filesize( $filePath));
 	</header>
 
 	<main class="container">
-		<h2>
-			<?php echo $fileName; ?>
-		</h2>
-		<hr>
-		<pre>
-			<?php echo $fileContent; ?>
-		</pre>
+		<form method="post" action="updateFile.php?fileName=<?php echo $fileName; ?>">
+			<h2> 
+				<?php echo $fileName; ?>
+			</h2>
+			<hr>
+			<textarea class="form-control" rows="10" name="fileContent"><?php echo $fileContent; ?></textarea>
 
-		<a href="deleteFile.php?fileName=<?php echo $fileName; ?>">
-			Delete File
-		</a>
+			<a href="deleteFile.php?fileName=<?php echo $fileName; ?>" class="btn btn-outline-danger">
+				Delete File
+			</a>
+
+			<button type="submit" class="btn btn-primary">
+				Update File
+			</button>
+		</form>
 	</main>
 
 	<footer class="footer">

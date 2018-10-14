@@ -38,19 +38,28 @@ require_once 'model/User.php';
 
 		<!-- Html for Files here -->
 			<div>
-				<h3>
-					<?php echo $file["fileName"]; ?>
-				</h3>
+				<div class="row">
+					<h3 class="col">
+						<?php echo $file["fileName"]; ?>
+					</h3>
 
+					<form class="form-inline col">
+						<input type="text" name="searchStr" class="form-control-sm">
+						<button type="submit" class="btn btn-primary btn-sm">Search</button>
+					</form>
+				</div>
 				<hr>
+				<div class="row">
+					<a href="editFile.html.php?fileName=<?php echo $file["fileName"]; ?>" class="col">
+						Edit
+					</a>
 
-				<a href="editFile.html.php?fileName=<?php echo $file["fileName"]; ?>">
-					Edit
-				</a>
+					<a href="" class="col">
+						Append
+					</a>
+				</div>
 
-				<pre>
-					<?php echo $fileContent; ?>
-				</pre>
+				<pre><?php echo $fileContent; ?></pre>
 			</div>
 
 		<?php
