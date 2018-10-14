@@ -30,13 +30,12 @@ function UploadFile( $handle, $customer) {
 function DeleteFile( $fileName, $customer) {
 	$filePath = "../uploads/" . $fileName;
 
-	unlink( $filePath);
-
 	$result = $customer->deleteFileName( $fileName);
 	if ( $result != "0") {
 		return $customer->getError();
 	}
 
+	unlink( $filePath);
 	return "0";
 }
 
