@@ -1,5 +1,5 @@
 <?php
-require_once 'model/user.php';
+require_once '../model/user.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$customer = new User();

@@ -7,5 +7,5 @@ $result = AppendAfterLine( $_REQUEST["fileName"], $_REQUEST["position"], $_REQUE
 session_start();
 $_SESSION["operationResult"] = $result;
 
-header( 'Location: displayFiles.html.php');
+header( 'Location: ../view/displayFiles.html.php');
 ?>

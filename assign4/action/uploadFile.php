@@ -1,7 +1,7 @@
 <?php 
 
 require_once 'helper.php';
-require_once 'model/user.php';
+require_once '../model/user.php';
 
 if ( $_SERVER[ "REQUEST_METHOD"] == "POST") {
 	session_start();
@@ -10,12 +10,12 @@ if ( $_SERVER[ "REQUEST_METHOD"] == "POST") {
 	if ( $isUploaded != "0") {
 		session_start();
 		$_SESSION["flashMessages"] = "Could not upload. Error :" . $isUploaded;
-		header( 'Location: index.html.php');
+		header( 'Location: ../view/index.html.php');
 	}
 	else {
 		session_start();
 		$_SESSION["flashMessages"] = "File Uploaded !";
-		header( 'Location: displayFiles.html.php');
+		header( 'Location: ../view/displayFiles.html.php');
 	}
 }
 

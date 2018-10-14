@@ -1,6 +1,6 @@
 <?php
 
-$filePath = "./uploads/" . $_REQUEST["fileName"];
+$filePath = "../uploads/" . $_REQUEST["fileName"];
 
 $filePointer = fopen( $filePath, 'r');
 $fileContent = fread( $filePointer, filesize( $filePath));
@@ -16,6 +16,6 @@ else {
 	$_SESSION["operationResult"] =  "Could not find string '" . $_REQUEST['strToSearch'] . "' in the file " . $_REQUEST["fileName"];
 }
 
-header( 'Location: displayFiles.html.php');
+header( 'Location: ../view/displayFiles.html.php');
 
 ?>

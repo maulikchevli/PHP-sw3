@@ -1,7 +1,7 @@
 <?php
 
 function UploadFile( $handle, $customer) {
-	$targetDir = "./uploads/";
+	$targetDir = "../uploads/";
 	$targetFile = $targetDir . $handle["file"]["name"];
 
 	if ( file_exists( $targetFile)) {
@@ -28,7 +28,7 @@ function UploadFile( $handle, $customer) {
 }
 
 function DeleteFile( $fileName, $customer) {
-	$filePath = "./uploads/" . $fileName;
+	$filePath = "../uploads/" . $fileName;
 
 	unlink( $filePath);
 
@@ -41,7 +41,7 @@ function DeleteFile( $fileName, $customer) {
 }
 
 function UpdateFile( $fileName, $content) {
-	$filePath = "./uploads/" . $fileName;
+	$filePath = "../uploads/" . $fileName;
 
 	$filePointer = fopen( $filePath, 'w');
 
@@ -56,7 +56,7 @@ function UpdateFile( $fileName, $content) {
 }
 
 function AppendToFile( $fileName, $pos, $toAppend) {
-	$filePath = "./uploads/" . $fileName;
+	$filePath = "../uploads/" . $fileName;
 	$maxPos = filesize( $filePath);
 
 	if ( $pos > $maxPos) {
@@ -83,8 +83,8 @@ function AppendToFile( $fileName, $pos, $toAppend) {
 }
 
 function AppendAfterLine( $fileName, $lineNum, $toAppend) {
-	$filePath = "./uploads/" . $fileName;
-	$tmpPath = "./uploads/tmp.txt";
+	$filePath = "../uploads/" . $fileName;
+	$tmpPath = "../uploads/tmp.txt";
 
 	$filePointer = fopen( $filePath, 'r+');
 	$tmpPointer = fopen( $tmpPath, 'w+');
@@ -119,7 +119,7 @@ function AppendAfterLine( $fileName, $lineNum, $toAppend) {
 	fclose( $filePointer);
 	unlink( $tmpPointer);
 
-	return "Appned succes !";
+	return "Append succes !";
 }
 
 ?>

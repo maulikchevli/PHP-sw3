@@ -1,5 +1,5 @@
 <?php
-require_once 'model/User.php'; // Used in courseDetails.html.php
+require_once '../model/User.php'; // Used in courseDetails.html.php
 ?>
 
 <!DOCTYPE html>
@@ -27,10 +27,11 @@ require_once 'model/User.php'; // Used in courseDetails.html.php
 		<?php 
 		if( isset( $_SESSION["customer"])) {
 		?>
-			<form method="post" action="uploadFile.php" enctype="multipart/form-data">
+			<form method="post" action="../action/uploadFile.php" enctype="multipart/form-data">
+				<hr>
 				<div class="form-group">
 					<label for="file">File to Upload</label>
-					<input type="file" id="file" name="file">
+					<input type="file" id="file" name="file" required>
 				</div>
 
 				<button type="submit" class="btn btn-outline-success">

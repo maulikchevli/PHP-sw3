@@ -1,6 +1,6 @@
 <?php
 
-require_once 'model/User.php';
+require_once '../model/User.php';
 
 ?>
 <!DOCTYPE html>
@@ -28,7 +28,7 @@ require_once 'model/User.php';
 		<?php 
 		session_start();
 		$files = $_SESSION["customer"]->getFileNames();
-		$fileDirectory = "./uploads/";
+		$fileDirectory = "../uploads/";
 
 		while( $file = $files->fetch_assoc()) {
 			$filePath = $fileDirectory . $file["fileName"];
@@ -44,7 +44,7 @@ require_once 'model/User.php';
 					</h3>
 
 					<!-- Search in file -->
-					<form class="form-inline col" action="searchFile.php?fileName=<?php echo $file['fileName']; ?>" method="post">
+					<form class="form-inline col" action="../action/searchFile.php?fileName=<?php echo $file['fileName']; ?>" method="post">
 						<input type="text" name="strToSearch" class="form-control-sm">
 						<button type="submit" class="btn btn-primary btn-sm">Search</button>
 					</form>

@@ -1,8 +1,8 @@
 <?php
-require_once 'model/User.php';
+require_once '../model/User.php';
 // TODO Security: check if file belongs to user
 
-$fileDirectory = "./uploads/";
+$fileDirectory = "../uploads/";
 $fileName = $_REQUEST["fileName"];
 
 $filePath = $fileDirectory . $fileName;
@@ -35,14 +35,14 @@ fclose( $filePointer);
 	</header>
 
 	<main class="container">
-		<form method="post" action="updateFile.php?fileName=<?php echo $fileName; ?>">
+		<form method="post" action="../action/updateFile.php?fileName=<?php echo $fileName; ?>">
 			<h2> 
 				<?php echo $fileName; ?>
 			</h2>
 			<hr>
 			<textarea class="form-control" rows="10" name="fileContent"><?php echo $fileContent; ?></textarea>
 
-			<a href="deleteFile.php?fileName=<?php echo $fileName; ?>" class="btn btn-outline-danger">
+			<a href="../action/deleteFile.php?fileName=<?php echo $fileName; ?>" class="btn btn-outline-danger">
 				Delete File
 			</a>
 
@@ -51,7 +51,7 @@ fclose( $filePointer);
 			</button>
 		</form>
 		<hr>
-		<form method="post" action="appendInFile.php?fileName=<?php echo $fileName; ?>">
+		<form method="post" action="../action/appendInFile.php?fileName=<?php echo $fileName; ?>">
 			<div class="form-group">
 				<label for="position">Position</label>
 				<input type="number" class="form-control col-2" name="position" id="position">

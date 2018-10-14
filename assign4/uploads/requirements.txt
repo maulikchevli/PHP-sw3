@@ -1,5 +1,0 @@
-PEAR::Mail
-# pear install -a Mail
-this data is appended
-
-/* this is a comment */
