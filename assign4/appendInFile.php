@@ -2,7 +2,10 @@
 
 require_once 'helper.php';
 
-$result = AppendToFile( $_REQUEST["fileName"], $_REQUEST["position"], $_REQUEST["toAppend"]);
+$result = AppendAfterLine( $_REQUEST["fileName"], $_REQUEST["position"], $_REQUEST["toAppend"]);
 
-echo $result;
+session_start();
+$_SESSION["operationResult"] = $result;
+
+header( 'Location: displayFiles.html.php');
 ?>

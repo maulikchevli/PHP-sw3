@@ -40,6 +40,21 @@ function DeleteFile( $fileName, $customer) {
 	return "0";
 }
 
+function UpdateFile( $fileName, $content) {
+	$filePath = "./uploads/" . $fileName;
+
+	$filePointer = fopen( $filePath, 'w');
+
+	if ( fwrite( $filePointer, $content)) {
+		fclose( $filePointer);
+		return "File Updated successfully !";
+	}
+	else {
+		fclose( $filePointer);
+		return "Could not update the file";
+	}
+}
+
 function AppendToFile( $fileName, $pos, $toAppend) {
 	$filePath = "./uploads/" . $fileName;
 	$maxPos = filesize( $filePath);
@@ -65,6 +80,46 @@ function AppendToFile( $fileName, $pos, $toAppend) {
 		fclose( $filePointer);
 		return "Could not append";
 	}
+}
+
+function AppendAfterLine( $fileName, $lineNum, $toAppend) {
+	$filePath = "./uploads/" . $fileName;
+	$tmpPath = "./uploads/tmp.txt";
+
+	$filePointer = fopen( $filePath, 'r+');
+	$tmpPointer = fopen( $tmpPath, 'w+');
+
+	while( $lineNum > 0) {
+		if ( feof( $filePointer)) {
+			$status = "FAIL";
+			return "Line Number Exceeds..";
+		}
+		$line = fgets( $filePointer);
+		fwrite( $tmpPointer, $line);
+		$lineNum--;
+	}
+
+	$data = $toAppend . "\n";
+	fwrite( $tmpPointer, $data);
+
+	while( !feof( $filePointer)) {
+		$line = fgets( $filePointer);
+		fwrite( $tmpPointer, $line);
+	}
+
+	// Transfer from tmp to original file
+	rewind( $filePointer);
+	rewind( $tmpPointer);
+
+	while( !feof( $tmpPointer)) {
+		$line = fgets( $tmpPointer);
+		fwrite( $filePointer, $line);
+	}
+
+	fclose( $filePointer);
+	unlink( $tmpPointer);
+
+	return "Appned succes !";
 }
 
 ?>

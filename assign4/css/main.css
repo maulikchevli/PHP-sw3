@@ -28,3 +28,9 @@ footer {
 	top: 50px;
 }
 
+.operation-result {
+	position: absolute;
+	bottom: 50px;
+	right: 0px;
+}
+

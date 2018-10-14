@@ -63,6 +63,26 @@ require_once 'model/User.php';
 			fclose( $filePointer);
 		}
 		?>
+
+		<!-- flash File Operation Result -->
+		<div class="operation-result">
+			<?php
+			if( isset( $_SESSION["operationResult"])) {
+			?>
+
+				<div class="alert alert-primary alert-dismissible fade show" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+
+					<?php echo $_SESSION["operationResult"]; ?>
+				</div>
+
+			<?php
+				unset( $_SESSION["operationResult"]);
+			}
+			?>
+		</div>
 	</main>
 
 	<footer class="footer">

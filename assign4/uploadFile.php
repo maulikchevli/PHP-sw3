@@ -13,6 +13,8 @@ if ( $_SERVER[ "REQUEST_METHOD"] == "POST") {
 		header( 'Location: index.html.php');
 	}
 	else {
+		session_start();
+		$_SESSION["flashMessages"] = "File Uploaded !";
 		header( 'Location: displayFiles.html.php');
 	}
 }

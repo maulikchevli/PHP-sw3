@@ -1,20 +1,10 @@
 <?php
 
-$filePath = "./uploads/" . $_REQUEST["fileName"];
+require_once 'helper.php';
 
-$filePointer = fopen( $filePath, 'w');
-
-if ( fwrite( $filePointer, $_REQUEST["fileContent"])) {
-	fclose( $filePointer);
-	session_start();
-	$_SESSION["flashMessages"] = "File Updated successfully";
-	header( 'Location: displayFiles.html.php');
-}
-else {
-	fclose( $filePointer);
-	session_start();
-	$_SESSION["flashMessages"] = "Could not update the file";
-	header( 'Location: displayFiles.html.php');
-}
+$result = UpdateFile( $_REQUEST["fileName"], $_REQUEST["fileContent"]);
+session_start();
+$_SESSION["operationResult"] = $result;
+header( 'Location: displayFiles.html.php');
 
 ?>
