@@ -26,7 +26,7 @@
 	</header>
 
 	<main class="container">
-		<form id="compose" action="send_mail.html.php" method="post">
+		<form id="compose" action="send.php" method="post">
 			<div class="form-group row">
 				<label for="receiverEmail" class="col-sm-2 col-form-label">To</label>
 				<div class="col-sm-10">
