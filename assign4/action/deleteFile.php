@@ -2,7 +2,7 @@
 require_once '../model/user.php';
 require_once 'helper.php';
 
-session_start();
+@session_start();
 
 // TODO security
 

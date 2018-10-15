@@ -1,5 +1,5 @@
 <?php
-session_start();
+@session_start();
 
 $student = $_SESSION['student'];
 $courseDetails = $student->getRegistrationDetails( $student->getRollNum());

@@ -1,7 +1,7 @@
 <?php
 require_once 'model/User.php';
 
-session_start();
+@session_start();
 
 $student = $_SESSION['student'];
 $queryResult = $student->deleteRegistration();

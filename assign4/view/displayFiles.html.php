@@ -26,7 +26,7 @@ require_once '../model/User.php';
 
 	<main class="container">
 		<?php 
-		session_start();
+		@session_start();
 		$files = $_SESSION["customer"]->getFileNames();
 		$fileDirectory = "../uploads/";
 

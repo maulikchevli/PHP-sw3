@@ -3,7 +3,7 @@
 require_once 'model/user.php';
 
 if ( $_SERVER["REQUEST_METHOD"] == "POST") {
-	session_start();
+	@session_start();
 
 	$courseDetails = filter_input_array( INPUT_POST, FILTER_SANITIZE_STRING);
 	$student = $_SESSION['student'];

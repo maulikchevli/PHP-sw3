@@ -9,12 +9,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	
 	if ($query_result != '0') {
 		// Show Error
-		session_start();
+		@session_start();
 		$_SESSION["flashMessages"] = $student->getError();
 	}
 	else {
 		// add student to session
-		session_start();
+		@session_start();
 		$_SESSION["student"] = $student;
 		$_SESSION["hasRegistered"] = $student->getRegistrationStatus();
 

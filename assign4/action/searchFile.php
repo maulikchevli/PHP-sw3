@@ -8,7 +8,7 @@ fclose( $filePointer);
 
 $strPosition = stripos( $fileContent, $_REQUEST["strToSearch"]);
 
-session_start();
+@session_start();
 if ( $strPosition !== false) {
 	$_SESSION["operationResult"] =  "Found at position : $strPosition";
 }

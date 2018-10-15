@@ -9,12 +9,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	
 	if ($query_result != '0') {
 		// Show Error
-		session_start();
+		@session_start();
 		$_SESSION["flashMessages"] = $customer->getError();
 	}
 	else {
 		// add customer object to session
-		session_start();
+		@session_start();
 		$_SESSION["customer"] = $customer;
 
 		// redirect to homepage
