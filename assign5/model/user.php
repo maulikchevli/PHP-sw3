@@ -5,11 +5,12 @@
  * Three types: Viewer, Blogger, Admin
  */
 
-/* TODO Change constuctor of child, change permission level from there
+/*
+ * TODO Get blog Counter from dataBase on user login
  */
 
 class User {
-	private $error;
+	protected $error;
 	protected $permissionLevel = 0;
 	protected $username;
 	// Other Info
@@ -51,8 +52,8 @@ class User {
 
 		$db_delegate = new dbConnection('prototype');
 		if ( $db_delegate->getError()) {
-			$this->errors = $db_delegate->getError();
-			return '-1';
+			$this->error = $db_delegate->getError();
+			return false;
 		}
 
 		$sql_query = "insert into user values ('$this->username', '$this->permissionLevel')";
@@ -60,11 +61,11 @@ class User {
 		// username is Unique as it is Primary key
 		$result = $db_delegate->insert_query( $sql_query);
 		if ( $db_delegate->getError()) {
-			$this->errors = $db_delegate->getError();
-			return '-2';
+			$this->error = $db_delegate->getError();
+			return false;
 		}
 
-		return '0';
+		return true;
 	}
 
 	public function logout() {
@@ -88,9 +89,11 @@ class Blogger extends User {
 	}
 
 	public function getProfile() {
+		// After html form
 	}
 
 	public function getNewNotifs() {
+		// Implement after blog and user, html
 	}
 
 	public function getFollowers() {
@@ -127,7 +130,29 @@ class Blogger extends User {
 		return $result;
 	}
 
-	public function postBlog() {
+	public function postBlog( Blog $blog) {
+		// other details about blog
+
+		$title = $blog->getTitle();
+		$username = $blog->getOwner();
+
+		$db_delegate = new dbConnection('prototype');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "insert into blog (username, title) values ('$username', '$title')";
+
+		$result = $db_delegate->insert_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+		
+		var_dump( $result);
+
+		return true;
 	}
 
 	public function updateBlog() {
@@ -149,6 +174,7 @@ class Admin extends User {
 	}
 
 	public function verifyBlogger( Blogger $blogger) {
+		// After html form
 	}
 
 	public function setPermissions( Blogger $blogger, $permission) {
@@ -159,7 +185,23 @@ class Admin extends User {
 		$blogger->setPermissionLevel( $permission);		
 	}
 
-	public function deleteBlog() {
+	public function deleteBlog( Blog $blog) {
+		$blogId = $blog->getBlogId();
+
+		$db_delegate = new dbConnection('prototype');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "delete from blog where blogId='$blogId'";
+		$result = $db_delegate->update_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		return true;
 	}
 }
 
