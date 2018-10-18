@@ -9,12 +9,17 @@
  */
 
 class User {
+	private $error;
 	protected $permissionLevel = 0;
 	protected $username;
 	// Other Info
 
 	public function __construct( $username) {
 		$this->username = $username;
+	}
+
+	public function getError() {
+		return $this->error; 
 	}
 
 	public function getUsername() {
@@ -89,9 +94,37 @@ class Blogger extends User {
 	}
 
 	public function getFollowers() {
+		$db_delegate = new dbConnection('prototype');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "select follower from followers where username='$this->username'";
+		$result = $db_delegate->select_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		return $result;
 	}
 
 	public function getFollowings() {
+		$db_delegate = new dbConnection('prototype');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "select username from followers where follower='$this->username'";
+		$result = $db_delegate->select_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		return $result;
 	}
 
 	public function postBlog() {

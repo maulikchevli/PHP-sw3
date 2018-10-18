@@ -5,7 +5,6 @@ class dbConnection {
 	private $error;
 
 	public function __construct( $DB) {
-		echo $DB . "\n";
 		$this->conn = new mysqli('localhost','root','root',$DB);
 		if ($this->conn->connect_error) {
 			$this->error = 'Could not connect to database';

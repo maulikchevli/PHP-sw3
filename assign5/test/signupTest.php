@@ -7,5 +7,9 @@ $user = new Blogger('user');
 $result = $user->signup(' ');
 echo $result;
 
+$admin = new Admin('admin');
+$result = $admin->signup(' ');
+
+echo "<br> $result";
 
 ?>
