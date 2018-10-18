@@ -7,16 +7,14 @@ $admin = new Admin('maulik');
 echo $user->getUsername();
 echo $user->getPermissionLevel();
 
-echo "<br>";
+echo "\n";
 
 echo $admin->getUsername();
 echo $admin->getPermissionLevel();
-echo "<br>";
+echo "\n";
 
 $admin->setPermissions( $user, 1);
 
-
 echo $user->getUsername();
 echo $user->getPermissionLevel();
-var_dump( $user);
 ?>

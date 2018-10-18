@@ -25,6 +25,9 @@ class User {
 		return $this->permissionLevel;
 	}
 
+	protected function setPermissionLevel( $permission) {
+		$this->permissionLevel = $permission;
+	}
 
 	public function login() {
 	}
@@ -46,15 +49,10 @@ class Blogger extends User {
 	// Permission level should be 1 or 2
 	// 1 -> only view rights
 	// 2 -> read + write
-	private $permissionLevel = 2;
 
-	public function getPermissionLevel() {
-		return $this->permissionLevel;
-	}
-
-	protected function setPermissionLevel( $permission) {
-		echo "HEY <br>";
-		$this->permissionLevel = $permission;
+	public function __construct( $username) {
+		parent:: __construct( $username);
+		$this->setPermissionLevel( 2);
 	}
 
 	public function getProfile() {
@@ -84,19 +82,16 @@ class Blogger extends User {
 
 class Admin extends User {
 	// permission Level 3
-	private $permissionLevel = 3;
 
-	public function getPermissionLevel() {
-		return $this->permissionLevel;
+	public function __construct( $username) {
+		parent:: __construct( $username);
+		$this->setPermissionLevel( 3);
 	}
 
 	public function verifyBlogger( Blogger $blogger) {
 	}
 
 	public function setPermissions( Blogger $blogger, $permission) {
-		var_dump( $blogger);
-		echo "<br>";
-
 		if ( $permission != 1 && $permission != 2) {
 			return "-1";
 		}
