@@ -29,10 +29,37 @@ class User {
 		$this->permissionLevel = $permission;
 	}
 
-	public function login() {
+	// $details contants all the info of user to insert in  DB
+	// it will not contain permissionLevel
+	public function login( $details) {
 	}
 
-	public function signup() {
+	public function signup( $details) {
+		/* 
+		if ( $details["password"] != $details["password2"]) {
+			$this->errors = "Password and confirm password not matching";
+			return '-99';
+		}
+
+		$password = password_hash( $details["password"], PASSWORD_DEFAULT);
+		*/
+
+		$db_delegate = new dbConnection('prototype');
+		if ( $db_delegate->getError()) {
+			$this->errors = $db_delegate->getError();
+			return '-1';
+		}
+
+		$sql_query = "insert into user values ('$this->username', '$this->permissionLevel')";
+
+		// username is Unique as it is Primary key
+		$result = $db_delegate->insert_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->errors = $db_delegate->getError();
+			return '-2';
+		}
+
+		return '0';
 	}
 
 	public function logout() {
