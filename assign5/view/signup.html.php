@@ -20,7 +20,7 @@
 
 	<main class="container">
 		<h1>Sign Up</h1>
-		<form method="post"> 
+		<form method="post" action="../action/signup.php">
 			<div class="form-row">
 				<div class="form-group col">
 					<label for="firstName">First Name</label>

@@ -80,12 +80,13 @@ class User {
 
 class Blogger extends User {
 	// Permission level should be 1 or 2
-	// 1 -> only view rights
-	// 2 -> read + write
+	// 0 -> only view rights
+	// 1 -> read + write
+	// 2 -> verified by admin
 
 	public function __construct( $username) {
 		parent:: __construct( $username);
-		$this->setPermissionLevel( 2);
+		$this->setPermissionLevel( 1);
 	}
 
 	public function getProfile() {
