@@ -7,6 +7,7 @@
 
 /*
  * TODO Get blog Counter from dataBase on user login
+ * TODO update constructor to get details of user if logged in
  */
 
 class User {
@@ -232,10 +233,6 @@ class Blogger extends User {
 		$this->setPermissionLevel( $permissionLevel);
 	}
 
-	public function getProfile() {
-		// After html form
-	}
-
 	public function getNewNotifs() {
 		// Implement after blog and user, html
 	}
@@ -272,6 +269,43 @@ class Blogger extends User {
 		}
 
 		return $result;
+	}
+
+	public function follow( $username) {
+		$db_delegate = new dbConnection('blog');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "insert into followers values ( '$username', '$this->username')";
+		$result = $db_delegate->insert_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		// TODO notifications of follow
+
+		return true;
+	}
+		
+
+	public function unfollow( $username) {
+		$db_delegate = new dbConnection('blog');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "delete from followers where follower='$this->username' and username='$username'";
+		$result = $db_delegate->update_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		return true;
 	}
 
 	public function postBlog( Blog $blog) {

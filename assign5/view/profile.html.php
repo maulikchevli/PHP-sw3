@@ -7,18 +7,27 @@ require_once '../model/blog.php';
 $user = new User( $_REQUEST["username"]);
 $details = $user->getDetails();
 
+@session_start();
+
 if ( $details == false) {
 	$_SESSION["flashError"] = "Could not get details. Try again";
 	header( 'Location: ../view/index.html.php');
 }
 
-if ( $details["permission"] == 3) {
+if ( $details["userType"] == 3) {
 	$user = new Admin( $_REQUEST["username"]);
 }
 else {
 	$user = new Blogger( $_REQUEST["username"], $details["userType"]);
 }
 $user->getDetails();
+
+// check condition if its not an admin
+$followerDB = $user->getFollowers();
+$followingDB = $user->getFollowings();
+
+$numOfFollowers = $followerDB->num_rows;
+$numOfFollowings = $followingDB->num_rows;
 
 ?>
 
@@ -45,7 +54,49 @@ $user->getDetails();
 
 	<main class="container">
 		<div class="row">
-			<h2><?php echo $details["firstName"] . " " . $details["lastName"]; ?></h2>
+			<div class="col">
+				<h2><?php echo $details["firstName"] . " " . $details["lastName"]; ?></h2>
+			</div>
+
+			<div class="col">
+				<button class="btn btn-primary">
+					Followers <span class="badge"><?php echo $numOfFollowers;?></span>
+				</button>
+				
+				<button class="btn btn-primary">
+					Following <span class="badge"><?php echo $numOfFollowings;?></span>
+				</button>
+			</div>
+		</div>
+
+		<div class="row">
+			<!-- Follow unfllow -->
+			<?php 
+			if ( isset( $_SESSION["user"])) {
+				if ( $_SESSION["user"]->getUsername() != $details["username"]) {
+					$myFollowingDB = $_SESSION["user"]->getFollowings();
+					$myFollowingBD = $_SESSION["user"]->getFollowers();
+					
+					$isFollowing = false;
+					while( $following = $myFollowingDB->fetch_assoc()) {
+						if ( $following["username"] == $details["username"]) {
+							$isFollowing = true;
+							break;
+						}
+					}
+
+					if ( $isFollowing) {
+					?>
+						<a href="../action/unfollow.php?username=<?php echo $details["username"];?>">Unfollow</a>
+					<?php
+					} else {
+					?>
+						<a href="../action/follow.php?username=<?php echo $details["username"];?>">Follow</a>
+					<?php
+					}
+				}
+			}
+			?>
 		</div>
 
 		<div class="row">
@@ -68,7 +119,7 @@ $user->getDetails();
 
 		<!-- check if user has verified the email -->
 		<?php 
-		if ( $_SESSION["user"]->getUsername() == $details["username"]) {
+		if ( isset( $_SESSION["user"]) && $_SESSION["user"]->getUsername() == $details["username"]) {
 			if ( $_SESSION["user"]->isEmailVerified() == false) {
 		?>
 			<div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -95,6 +146,7 @@ $user->getDetails();
 		</div>
 	</footer>
 
+<script src=""></script>
 </body>
 </html>
 
