@@ -20,7 +20,7 @@
 
 	<main class="container">
 		<h1>Login</h1>
-		<form method="post"> 
+		<form method="post" action="../action/login.php">
 			<div class="form-group">
 				<label for="username">Username</label>
 				<input type="text" class="form-control" id="username" name="username" placeholder="Username">

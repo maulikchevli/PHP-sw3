@@ -5,7 +5,7 @@ $username = $_REQUEST["username"];
 $encrypted_value = $_REQUEST["pass"];
 echo $encrypted_value . "<br>";
 
-$decrypted_value = openssl_decrypt( $encrypted_value, "AES-128-ECB", "admin");
+$decrypted_value = openssl_decrypt( $encrypted_value, "AES-128-ECB", "password");
 echo $decrypted_value . "<br>";
 
 var_dump( $_REQUEST);

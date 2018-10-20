@@ -1,3 +1,10 @@
+<?php
+
+require_once '../model/User.php';
+require_once '../model/blog.php';
+
+?>
+
 <!DOCTYPE html>
 <html land="en">
 <head>

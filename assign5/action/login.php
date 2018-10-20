@@ -7,20 +7,20 @@ require_once '../model/blog.php';
 if ( $_SERVER["REQUEST_METHOD"] == "POST") {
 	$details = filter_input_array( INPUT_POST, FILTER_SANITIZE_STRING);
 
-	$blogger = new Blogger( $details["username"]);
+	$user = new User( $details["username"]);
 
-	$result = $blogger->signup($details);
+	$result = $user->login( $details);
 	@session_start();
 	if ( $result != true) {
 		$_SESSION["flashError"] = $blogger->getError();
 	}
 	else {
-		$_SESSION["flashSuccess"] = "Successfully signed up
-		Check your email for verification of account";
-		$_SESSION["user"] = $blogger;
+		if ( $user->getPermissionLevel() == 3) {
+			$user = new Admin( $details["username"]);
+		}
+		$_SESSION["user"] = $user;
 	}
 
 	header( 'Location: ../view/index.html.php');
 }
-
 ?>
