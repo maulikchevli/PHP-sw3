@@ -33,11 +33,32 @@ class User {
 	}
 
 	public function isEmailVerified() {
-		return $emailVerified;
+		return $this->emailVerified;
 	}
 
 	protected function setPermissionLevel( $permission) {
 		$this->permissionLevel = $permission;
+	}
+
+	public function getDetails() {
+		$db_delegate = new dbConnection('blog');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "select username,firstName,lastName,email,birthDate,bio,emailVerified,userType from user where username='$this->username'";
+		$result = $db_delegate->select_query($sql_query);
+		if ($db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$db_userInfo = $result->fetch_assoc();
+		$this->emailVerified = $db_userInfo["emailVerified"];
+		$this->permissionLevel = $db_userInfo["userType"];
+
+		return $db_userInfo;
 	}
 
 	// $details contants all the info of user to insert in  DB
@@ -80,7 +101,6 @@ class User {
 			$this->error = "Password and confirm password not matching";
 			return false;
 		}
-Username();
 		$db_delegate = new dbConnection('blog');
 		if ( $db_delegate->getError()) {
 			$this->error = $db_delegate->getError();
@@ -125,7 +145,7 @@ Username();
 			return false;
 		}
 
-		$sql_query = "update blog set emailVerified=1 where username='$this->username'";
+		$sql_query = "update user set emailVerified=1 where username='$this->username'";
 		$result = $db_delegate->update_query( $sql_query);
 		if ( $db_delegate->getError()) {
 			$this->error = $db_delegate->getError();
@@ -327,6 +347,28 @@ class Admin extends User {
 
 		return true;
 	}
+}
+
+function searchQuery( $searchQuery) {
+	// TODO add results for blog too
+	// TODO add results based on firstName and LastName
+
+	$db_delegate = new dbConnection('blog');
+	if ( $db_delegate->getError()) {
+		$this->error = $db_delegate->getError();
+		return false;
+	}
+
+	$searchQuery .= "%";
+	$sql_query = "select username from user where username LIKE '$searchQuery'";
+	$users = $db_delegate->select_query( $sql_query);
+	if ( $db_delegate->getError()) {
+		$this->error = $db_delegate->getError();
+		return false;
+	}
+
+	$result["users"] = $users;
+	return $result;
 }
 
 ?>

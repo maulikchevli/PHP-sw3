@@ -21,9 +21,11 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST") {
 		} else {
 			$user = new Blogger( $details["username"], $permissionLevel);
 		}
+		// quick fix
+		$user->getDetails();
 		$_SESSION["user"] = $user;
 	}
 
-	header( 'Location: ../view/index.html.php');
+	header( 'Location: ../view/profile.html.php?username=' . $details["username"]);
 }
 ?>
