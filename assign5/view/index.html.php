@@ -2,6 +2,7 @@
 
 require_once '../model/User.php';
 require_once '../model/blog.php';
+require_once '../model/dbConnection.php';
 
 ?>
 
@@ -27,6 +28,8 @@ require_once '../model/blog.php';
 	</header>
 
 	<main class="container">
+		<?php
+		?>
 		<!-- Search Function -->
 		<!-- Blogs -->
 	</main>

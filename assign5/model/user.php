@@ -13,6 +13,7 @@ class User {
 	protected $error;
 	protected $permissionLevel = 0;
 	protected $username;
+	protected $emailVerified = false;
 	// Other Info
 
 	public function __construct( $username = "") {
@@ -29,6 +30,10 @@ class User {
 
 	public function getPermissionLevel() {
 		return $this->permissionLevel;
+	}
+
+	public function isEmailVerified() {
+		return $emailVerified;
 	}
 
 	protected function setPermissionLevel( $permission) {
@@ -65,6 +70,7 @@ class User {
 		}
 
 		$this->permissionLevel = $db_userInfo["userType"];
+		$this->emailVerified = $db_userInfo["emailVerified"];
 
 		return true;
 	}
@@ -110,6 +116,25 @@ Username();
 			$this->error = "Could not send mail, try again";
 			return false;
 		}
+	}
+
+	public function updateEmailVerification() {
+		$db_delegate = new dbConnection('blog');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "update blog set emailVerified=1 where username='$this->username'";
+		$result = $db_delegate->update_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$this->emailVerified = true;
+
+		return true;
 	}
 
 	public function sendEmailVerification( $email) {
@@ -182,9 +207,9 @@ class Blogger extends User {
 	// 1 -> read + write
 	// 2 -> verified by admin
 
-	public function __construct( $username) {
+	public function __construct( $username, $permissionLevel = 1) {
 		parent:: __construct( $username);
-		$this->setPermissionLevel( 1);
+		$this->setPermissionLevel( $permissionLevel);
 	}
 
 	public function getProfile() {
@@ -267,9 +292,9 @@ class Blogger extends User {
 class Admin extends User {
 	// permission Level 3
 
-	public function __construct( $username) {
+	public function __construct( $username, $permissionLevel = 3) {
 		parent:: __construct( $username);
-		$this->setPermissionLevel( 3);
+		$this->setPermissionLevel( $permissionLevel);
 	}
 
 	public function verifyBlogger( Blogger $blogger) {

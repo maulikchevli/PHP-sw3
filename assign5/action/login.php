@@ -15,8 +15,11 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST") {
 		$_SESSION["flashError"] = $blogger->getError();
 	}
 	else {
-		if ( $user->getPermissionLevel() == 3) {
+		$permissionLevel = $user->getPermissionLevel();
+		if ( $permissionLevel  == 3) {
 			$user = new Admin( $details["username"]);
+		} else {
+			$user = new Blogger( $details["username"], $permissionLevel);
 		}
 		$_SESSION["user"] = $user;
 	}
