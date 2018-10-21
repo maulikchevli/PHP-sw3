@@ -218,6 +218,57 @@ class User {
 		}
 	}
 
+	public function getBlogs() {
+		$db_delegate = new dbConnection('blog');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "select * from blog LIMIT 10";
+		$result = $db_delegate->select_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		return $result;
+	}
+
+	public function getLikes( $blogId) {
+		$db_delegate = new dbConnection('blog');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "select * from likes where blogId='$blogId'";
+		$result = $db_delegate->select_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		return $result;
+	}
+
+	public function getComments( $blogId) {
+		$db_delegate = new dbConnection('blog');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "select * from comments where blogId='$blogId'";
+		$result = $db_delegate->select_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		return $result;
+	}
+
 	public function __destruct() {
 	}	
 }
@@ -312,7 +363,8 @@ class Blogger extends User {
 		// other details about blog
 
 		$title = $blog->getTitle();
-		$username = $blog->getOwner();
+		$owner = $blog->getOwner();
+		$body = $blog->getBody();
 
 		$db_delegate = new dbConnection('blog');
 		if ( $db_delegate->getError()) {
@@ -320,7 +372,7 @@ class Blogger extends User {
 			return false;
 		}
 
-		$sql_query = "insert into blog (username, title) values ('$username', '$title')";
+		$sql_query = "insert into blog (owner, title, body) values ('$owner', '$title', '$body')";
 
 		$result = $db_delegate->insert_query( $sql_query);
 		if ( $db_delegate->getError()) {
@@ -328,9 +380,24 @@ class Blogger extends User {
 			return false;
 		}
 		
-		var_dump( $result);
-
 		return true;
+	}
+
+	public function getBlogs() {
+		$db_delegate = new dbConnection('blog');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "select * from blog where owner='$this->username' LIMIT 10";
+		$result = $db_delegate->select_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		return $result;
 	}
 
 	public function updateBlog() {

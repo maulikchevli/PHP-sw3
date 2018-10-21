@@ -9,7 +9,7 @@
 
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<form class="form-inline mx-auto" action="../view/search.html.php" method="post">
-			<input class="form-control" type="search" name="query" placeholder="Search profile or blog title">
+			<input class="form-control" type="search" name="query" placeholder="Search profile or blog title" required>
 		</form>
 
 		<ul class="navbar-nav ml-auto">
@@ -21,6 +21,10 @@
 					<a class="nav-link" href="../view/profile.html.php?username=<?php echo $_SESSION['user']->getUsername(); ?>">
 						<?php echo $_SESSION["user"]->getUsername(); ?>
 					</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="../view/postBlog.html.php">Post Blog</a>
 				</li>
 				
 				<li class="nav-item">

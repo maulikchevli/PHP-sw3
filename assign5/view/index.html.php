@@ -29,8 +29,48 @@ require_once '../model/dbConnection.php';
 
 	<main class="container">
 		<?php
+			$viewer = new User( 'viewer');
+
+			$blogs = $viewer->getBlogs();
+			
+			if ( $blogs == false) {
+				echo "could not display" . "<br>";
+				echo $viewer->getError();
+			}
+			else {
+				while ( $blog = $blogs->fetch_assoc()) {
+					$likeDB = $viewer->getLikes( $blog["blogId"]);
+					$commentDB = $viewer->getComments( $blog["blogId"]);
+
+					$numLikes = $likeDB->num_rows;
+					$numComments = $commentDB->num_rows;
+				?>
+					<div class="row">
+						<!-- Blog Post -->
+						<div class="col-lg-8">
+							<!-- Title -->
+							<h1><?php echo $blog['title'];?></h1>
+
+							<!-- Author -->
+							<p class="lead">
+							by <a href="../view/profile.html.php?username=<?php echo $blog["owner"];?>"><?php echo $blog['owner'];?></a>
+							</p>
+							<hr>
+							<!-- Date/Time -->
+							<p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $blog['time'];?></p>
+							<p><?php echo $blog['body'];?></p>
+
+							<hr>
+
+							<p>Likes: <span class="badge"><?php echo $numLikes; ?></span></p>
+							<p>Comments: <span class="badge"><?php echo $numComments; ?></span></p>
+						</div>
+						<hr>
+					</div>
+				<?php
+				}
+			}
 		?>
-		<!-- Search Function -->
 		<!-- Blogs -->
 	</main>
 
