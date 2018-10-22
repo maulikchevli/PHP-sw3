@@ -401,6 +401,7 @@ class Blogger extends User {
 	}
 
 	public function updateBlog() {
+		// Last
 	}
 
 	public function likeBlog() {

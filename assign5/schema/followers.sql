@@ -8,12 +8,12 @@ CREATE TABLE `followers` (
 --
 
 INSERT INTO `followers` (`username`, `follower`) VALUES
-('maulik', 'suprit'),
-('maulik', 'harsh'),
-('maulik', 'naman'),
-('suprit', 'maulik'),
-('suprit', 'harsh'),
-('harsh', 'maulik');
+('maulikchevli', 'mau'),
+('mau', 'maulikchevli'),
+('maulikchevli', 'MaulikMaulik'),
+('naman', 'MaulikMaulik'),
+('mau', 'naman'),
+('maulikchevli', 'naman');
 
 --
 -- Indexes for dumped tables
@@ -23,7 +23,7 @@ INSERT INTO `followers` (`username`, `follower`) VALUES
 -- Indexes for table `followers`
 --
 ALTER TABLE `followers`
-  ADD KEY `username` (`username`),
+  ADD PRIMARY KEY (`username`,`follower`),
   ADD KEY `follower` (`follower`);
 
 --
@@ -34,6 +34,6 @@ ALTER TABLE `followers`
 -- Constraints for table `followers`
 --
 ALTER TABLE `followers`
-  ADD CONSTRAINT `followers_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`),
-  ADD CONSTRAINT `followers_ibfk_2` FOREIGN KEY (`follower`) REFERENCES `user` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `followers_ibfk_1` FOREIGN KEY (`username`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `followers_ibfk_2` FOREIGN KEY (`follower`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 
