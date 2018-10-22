@@ -119,30 +119,33 @@ $numOfFollowings = $followingDB->num_rows;
 
 		<!-- check if user has verified the email -->
 		<?php 
-		if ( isset( $_SESSION["user"]) && $_SESSION["user"]->getUsername() == $details["username"]) {
-			$viewer = $_SESSION["user"];
+		if ( isset( $_SESSION["user"]) ) {
+				$viewer = $_SESSION["user"];
+				$blogs = $viewer->getBlogsDetails( $details["username"]);
 
-			if ( $_SESSION["user"]->isEmailVerified() == false) {
-			?>
+			if( $_SESSION["user"]->getUsername() == $details["username"]) {
+				if ( $_SESSION["user"]->isEmailVerified() == false) {
+				?>
 
-			<div class="alert alert-warning alert-dismissible fade show" role="alert">
-				Verify your email to write your blogs
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			
-			<?php
-			}
-			else {
-				echo "email verified";
+				<div class="alert alert-warning alert-dismissible fade show" role="alert">
+					Verify your email to write your blogs
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				
+				<?php
+				}
+				else {
+					echo "email verified";
+				}
 			}
 		}
 		else {
 			$viewer = new User( 'viewer');
+			$blogs = $viewer->getBlogsDetails( $details["username"]);
 		}
-		
-		$blogs = $viewer->getBlogs();
+			
 		if ( $blogs == false) {
 			echo "could not display" . "<br>";
 			echo $viewer->getError();

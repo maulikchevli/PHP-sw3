@@ -235,6 +235,23 @@ class User {
 		return $result;
 	}
 
+	public function getBlogsDetails( $owner) {
+		$db_delegate = new dbConnection('blog');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "select * from blog where owner='$owner' LIMIT 10";
+		$result = $db_delegate->select_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		return $result;
+	}
+
 	public function getLikes( $blogId) {
 		$db_delegate = new dbConnection('blog');
 		if ( $db_delegate->getError()) {
