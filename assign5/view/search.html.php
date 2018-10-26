@@ -9,7 +9,8 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST") {
 
 	$result = searchQuery( $post["query"]);
 
-	$users = $result["users"];
+	$usernames = $result["username"];
+	$blogs = $result["blog"];
 }
 
 ?>
@@ -39,18 +40,38 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST") {
 		<div class="row">
 			<div class="col">
 				<h2>Users</h2>
-				<?php
-					while( $user = $users->fetch_assoc()) {
-				?>
-						<a href="../view/profile.html.php?username=<?php echo $user["username"];?>"><?php echo $user["username"];?></a>
-						<br>
-				<?php
-					}
-				?>
+
+					<ul>
+						<?php
+							while( $user = $usernames->fetch_assoc()) {
+						?>
+							<li>
+								<a href="../view/profile.html.php?username=<?php echo $user["username"];?>"><?php echo $user["username"];?></a>
+								<p><?echo $user["firstName"]." " $user["lastName"];?></p>
+							</li>
+						<?php
+							}
+						?>
+					</ul>
 			</div>
 
 			<div class="col">
 				<h2>Blogs</h2>
+
+					<ul>
+						<?php
+							while( $blog = $blogs->fetch_assoc()) {
+						?>		
+					
+							<li>
+								<a href="#"><?php echo $blog["blogId"];?></a>
+								<p><?php echo $blog["title"];?></p>
+							</li>
+
+						<?php
+							}
+						?>
+					</ul>
 			</div>
 		</div>
 	</main>

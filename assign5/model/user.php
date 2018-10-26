@@ -479,14 +479,25 @@ function searchQuery( $searchQuery) {
 	}
 
 	$searchQuery .= "%";
-	$sql_query = "select username from user where username LIKE '$searchQuery'";
+
+	$sql_query = "select username,firstName,lastName from user where username LIKE '$searchQuery'
+	              or firstName LIKE '$searchQuery' or lastName LIKE '$searchQuery'";
 	$users = $db_delegate->select_query( $sql_query);
 	if ( $db_delegate->getError()) {
 		$this->error = $db_delegate->getError();
 		return false;
 	}
+	$result["username"] = $users;
 
-	$result["users"] = $users;
+	$searchQuery = "%" . $searchQuery;
+	$sql_query = "select blogId,title from blog where title LIKE '$searchQuery'";
+	$blogs = $db_delegate->select_query( $sql_query);
+	if ( $db_delegate->getError()) {
+		$this->error = $db_delegate->getError();
+		return false;
+	}
+	$result["blog"] = $blogs;
+
 	return $result;
 }
 
