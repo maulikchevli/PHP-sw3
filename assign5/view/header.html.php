@@ -17,6 +17,19 @@
 			@session_start();
 			if ( isset( $_SESSION["user"])) {
 			?>
+				<?php
+					if ( $_SESSION["user"]->getPermissionLevel() == 3) {
+					?>
+
+					<li class="nav-item">
+						<a class="nav-link" href="../view/adminPage.html.php">
+							Admin page
+						</a>
+					</li>
+					<?php
+					}
+				?>
+
 				<li class="nav-item">
 					<a class="nav-link" href="../view/profile.html.php?username=<?php echo $_SESSION['user']->getUsername(); ?>">
 						<?php echo $_SESSION["user"]->getUsername(); ?>

@@ -428,7 +428,7 @@ class Blogger extends User {
 	}
 }
 
-class Admin extends User {
+class Admin extends Blogger {
 	// permission Level 3
 
 	public function __construct( $username, $permissionLevel = 3) {
@@ -436,16 +436,46 @@ class Admin extends User {
 		$this->setPermissionLevel( $permissionLevel);
 	}
 
+	public function getAllUsers() {
+		$db_delegate = new dbConnection('blog');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "select * from user";
+		$result = $db_delegate->select_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		return $result;
+	}
+
 	public function verifyBlogger( Blogger $blogger) {
 		// After html form
 	}
 
-	public function setPermissions( Blogger $blogger, $permission) {
+	public function setPermissions( $username, $permission) {
 		if ( $permission != 1 && $permission != 2) {
-			return "-1";
+			return false;
 		}
 
-		$blogger->setPermissionLevel( $permission);		
+		$db_delegate = new dbConnection('blog');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "update user set userType='$permission' where username='$username'";
+		$result = $db_delegate->update_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		return true;
 	}
 
 	public function deleteBlog( Blog $blog) {
