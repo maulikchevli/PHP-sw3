@@ -11,8 +11,12 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST") {
 
 	$result = $user->login( $details);
 	@session_start();
-	if ( $result != true) {
-		$_SESSION["flashError"] = $blogger->getError();
+
+	// dbg
+	var_dump( $result);
+	if ( $result == false) {
+		$_SESSION["flashError"] = $user->getError();
+		header( 'Location: ../view/login.html.php');
 	}
 	else {
 		$permissionLevel = $user->getPermissionLevel();
@@ -24,8 +28,8 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST") {
 		// quick fix
 		$user->getDetails();
 		$_SESSION["user"] = $user;
-	}
 
-	header( 'Location: ../view/profile.html.php?username=' . $details["username"]);
+		header( 'Location: ../view/profile.html.php?username=' . $details["username"]);
+	}
 }
 ?>

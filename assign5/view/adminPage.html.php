@@ -3,6 +3,8 @@ require_once '../model/user.php';
 require_once '../model/dbConnection.php';
 require_once '../model/blog.php';
 
+@session_start();
+
 if ( !isset( $_SESSION["user"]) || $_SESSION["user"]->getPermissionLevel() != 3) {
 	$_SESSION["flashError"] = "You cannot access that fearure";
 	header( 'Location: ../view/index.html.php');
