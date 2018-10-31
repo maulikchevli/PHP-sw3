@@ -55,7 +55,7 @@ $numOfFollowings = $followingDB->num_rows;
 	<main class="container">
 		<div class="row">
 			<div class="col">
-				<h2><?php echo $details["firstName"] . " " . $details["lastName"]; ?></h2>
+				<h1><?php echo $details["firstName"] . " " . $details["lastName"]; ?></h1>
 			</div>
 
 			<div class="col">
@@ -100,21 +100,27 @@ $numOfFollowings = $followingDB->num_rows;
 		</div>
 
 		<div class="row">
-			<div class="col">
-				<p><?php echo $details["username"]; ?></p>
+			<div class="col-sm-6">
+				<p>Username : <?php echo $details["username"]; ?></p>
 			</div>
 
-			<div class="col">
+			<div class="col-sm-2">
 				<p><?php echo $details["birthDate"]; ?></p>
 			</div>
+
+			<div class="col-sm-4">
+				<p><?php echo $details["email"]; ?></p>
+			</div>
 		</div>
 
 		<div class="row">
-			<p><?php echo $details["email"]; ?></p>
-		</div>
+			<div class="col-sm-2">
+				Bio :
+			</div>
 
-		<div class="row">
-			<pre><?php echo $details["bio"]; ?></pre>
+			<div class="col-sm-6">
+				<pre><?php echo $details["bio"]; ?></pre>
+			</div>
 		</div>
 
 		<!-- check if user has verified the email -->
