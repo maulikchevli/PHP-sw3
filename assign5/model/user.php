@@ -225,7 +225,7 @@ class User {
 			return false;
 		}
 
-		$sql_query = "select * from blog LIMIT 10";
+		$sql_query = "select * from blog ORDER BY time DESC LIMIT 10";
 		$result = $db_delegate->select_query( $sql_query);
 		if ( $db_delegate->getError()) {
 			$this->error = $db_delegate->getError();
@@ -242,7 +242,7 @@ class User {
 			return false;
 		}
 
-		$sql_query = "select * from blog where owner='$owner' LIMIT 10";
+		$sql_query = "select * from blog where owner='$owner' ORDER BY time DESC LIMIT 10";
 		$result = $db_delegate->select_query( $sql_query);
 		if ( $db_delegate->getError()) {
 			$this->error = $db_delegate->getError();
