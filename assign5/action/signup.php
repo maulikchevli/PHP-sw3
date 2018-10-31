@@ -13,14 +13,14 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST") {
 	@session_start();
 	if ( $result != true) {
 		$_SESSION["flashError"] = $blogger->getError();
+		header( 'Location: ../view/signup.html.php');
 	}
 	else {
 		$_SESSION["flashSuccess"] = "Successfully signed up
 		Check your email for verification of account";
 		$_SESSION["user"] = $blogger;
+		header( 'Location: ../view/index.html.php');
 	}
-
-	header( 'Location: ../view/index.html.php');
 }
 
 ?>
