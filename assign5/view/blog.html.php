@@ -60,17 +60,28 @@ if ( !isset( $_SESSION["user"])) {
 					<p>Comments: <span class="badge"><?php echo $numComments; ?></span></p>
 					<hr>
 				</div>
+			<div>
 
-				<div class="row">
-					<?php
-					$commentsInfo = $blog->getCommentDB();
+			<div class="row">
+				<!-- Post a comment -->
+				<form class="form-row" method="post" action="../action/comment.php?blogId=<?php echo $blog->getBlogId(); ?>">
+					<label for="comment">Comment on post:</label>
+					<input type="text" id="comment" name="comment" class="form-control">
+					<button type="submit" class="btn btn-outline-primary">Comment</button>
+				</form>
+			</div>
 
-					while( $comment = $commentsInfo->fetch_assoc()) {
-						echo $comment["username"] . "<br>";
-						echo $comment["comment"];
-					}
-					?>
-				</div>
+			<hr>
+
+			<div class="row">
+				<?php
+				$commentsInfo = $blog->getCommentDB();
+
+				while( $comment = $commentsInfo->fetch_assoc()) {
+					echo $comment["username"] . "<br>";
+					echo $comment["comment"];
+				}
+				?>
 			</div>
 	</main>
 

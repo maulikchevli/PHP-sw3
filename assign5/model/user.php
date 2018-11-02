@@ -424,7 +424,22 @@ class Blogger extends User {
 	public function likeBlog() {
 	}
 
-	public function commentOnBlog() {
+	public function commentOnBlog( $blogId, $comment) {
+		$db_delegate = new dbConnection('blog');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "insert into comments values ( '$blogId', '$this->username', '$comment')";
+
+		$result = $db_delegate->insert_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+		
+		return true;
 	}
 }
 
