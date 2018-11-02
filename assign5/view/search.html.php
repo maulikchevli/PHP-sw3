@@ -64,8 +64,7 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST") {
 						?>		
 					
 							<li>
-								<a href="#"><?php echo $blog["blogId"];?></a>
-								<p><?php echo $blog["title"];?></p>
+								<p><a href="../view/blog.html.php?blogId=<?php echo $blog["blogId"]; ?>"><?php echo $blog["title"];?></a></p>
 							</li>
 
 						<?php

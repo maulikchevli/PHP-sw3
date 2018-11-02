@@ -49,7 +49,7 @@ require_once '../model/dbConnection.php';
 						<!-- Blog Post -->
 						<div class="col-lg-8">
 							<!-- Title -->
-							<h1><?php echo $blog['title'];?></h1>
+							<h1><a href="../view/blog.html.php?blogId=<?php echo $blog['blogId']; ?>"><?php echo $blog['title'];?></a></h1>
 
 							<!-- Author -->
 							<p class="lead">
