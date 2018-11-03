@@ -18,32 +18,31 @@
 			if ( isset( $_SESSION["user"])) {
 			?>
 				<?php
-					if ( $_SESSION["user"]->getPermissionLevel() == 3) {
-					?>
-
+				if ( $_SESSION["user"]->getPermissionLevel() == 3) {
+				?>
 					<li class="nav-item">
 						<a class="nav-link" href="../view/adminPage.html.php">
 							Admin page
 						</a>
 					</li>
-					<?php
-					}
+				<?php
+				}
 				?>
 
-				<li class="nav-item">
-					<a class="nav-link" href="../view/profile.html.php?username=<?php echo $_SESSION['user']->getUsername(); ?>">
+				<li class="nav-item dropdown btn-group">
+					<a class="nav-link btn btn-outline-info"
+					   href="../view/profile.html.php?username=<?php echo $_SESSION['user']->getUsername(); ?>">
 						<?php echo $_SESSION["user"]->getUsername(); ?>
 					</a>
-				</li>
 
-				<li class="nav-item">
-					<a class="nav-link" href="../view/postBlog.html.php">Post Blog</a>
-				</li>
-				
-				<li class="nav-item">
-					<a class="nav-link" href="../action/logout.php">Log Out</a>
-				</li>
+					<a class="btn btn-outline-info nav-link dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="sr-only">Toggle Dropdown</span></a>
 
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="../view/postBlog.html.php">Post Blog</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="../action/logout.php">Log Out</a>
+					</div>
+				</li>
 			<?php
 			}
 			else {
