@@ -67,6 +67,28 @@ class Blog {
 		return true;
 	}
 
+	public function isLiker( $username) {
+		$db_delegate = new dbConnection('blog');
+		if( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "select * from likes where blogId='$this->blogId' and username='$username'";
+		$result = $db_delegate->select_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		if ( $result->num_rows < 1) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+
 	public function getError() {
 		return $this->error;
 	}

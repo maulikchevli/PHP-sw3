@@ -421,7 +421,40 @@ class Blogger extends User {
 		// Last
 	}
 
-	public function likeBlog() {
+	public function likeBlog( $blogId) {
+		$db_delegate = new dbConnection('blog');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "insert into likes values ( '$blogId', '$this->username')";
+
+		$result = $db_delegate->insert_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+		
+		return true;
+	}
+
+	public function unlikeBlog( $blogId) {
+		$db_delegate = new dbConnection('blog');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "delete from likes where blogId='$blogId' and username='$this->username'";
+
+		$result = $db_delegate->update_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+		
+		return true;
 	}
 
 	public function commentOnBlog( $blogId, $comment) {

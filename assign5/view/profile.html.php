@@ -172,11 +172,11 @@ $numOfFollowings = $followingDB->num_rows;
 
 						<!-- Author -->
 						<p class="lead">
-						by <a href="../view/profile.html.php?username=<?php echo $blog["owner"];?>"><?php echo $blog['owner'];?></a>
+							by <a class="col" href="../view/profile.html.php?username=<?php echo $blog["owner"];?>"><?php echo $blog['owner'];?></a>
+							<span class="col glyphicon glyphicon-time"></span> Posted on <?php echo $blog['time'];?>
 						</p>
 						<hr>
-						<!-- Date/Time -->
-						<p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $blog['time'];?></p>
+						<!-- Body -->
 						<p><?php echo $blog['body'];?></p>
 
 						<hr>
