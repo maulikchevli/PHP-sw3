@@ -177,10 +177,9 @@ $numOfFollowings = $followingDB->num_rows;
 						</p>
 						<hr>
 						<!-- Body -->
-						<p><?php echo $blog['body'];?></p>
+						<pre><?php echo $blog['body'];?></pre>
 
 						<hr>
-
 						<p>Likes: <span class="badge"><?php echo $numLikes; ?></span></p>
 						<p>Comments: <span class="badge"><?php echo $numComments; ?></span></p>
 					</div>

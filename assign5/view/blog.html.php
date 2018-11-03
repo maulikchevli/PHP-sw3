@@ -59,7 +59,7 @@ if ( !isset( $_SESSION["user"])) {
 					</p>
 					<hr>
 					<!-- Body -->
-					<p><?php echo $blog->getBody(); ?></p>
+					<pre><?php echo $blog->getBody(); ?></pre>
 
 					<hr>
 					<p>
