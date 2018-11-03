@@ -375,6 +375,24 @@ class Blogger extends User {
 		return true;
 	}
 
+	public function sendVerifyRequest() {
+		$db_delegate = new dbConnection('blog');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "insert into verifyRequest values ('$this->username')";
+
+		$result = $db_delegate->insert_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+		
+		return true;
+	}
+
 	public function postBlog( Blog $blog) {
 		// other details about blog
 
@@ -501,8 +519,45 @@ class Admin extends Blogger {
 		return $result;
 	}
 
-	public function verifyBlogger( Blogger $blogger) {
-		// After html form
+	public function verifyUser( $username) {
+		$db_delegate = new dbConnection('blog');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "update user set userType=2 where username='$username'";
+		$result = $db_delegate->update_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "delete from verifyRequest where username='$username'";
+		$result = $db_delegate->update_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		return true;
+	}
+
+	public function getVerifyRequests() {
+		$db_delegate = new dbConnection('blog');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "select v.username, u.userType from verifyRequest v, user u where u.username=v.username";
+		$result = $db_delegate->select_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		return $result;
 	}
 
 	public function setPermissions( $username, $permission) {

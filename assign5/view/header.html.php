@@ -25,6 +25,12 @@
 							Admin page
 						</a>
 					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="../view/verifyRequests.html.php">
+							Verify Requests
+						</a>
+					</li>
 				<?php
 				}
 				?>
