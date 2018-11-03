@@ -73,10 +73,8 @@ require_once '../model/dbConnection.php';
 		<!-- Blogs -->
 	</main>
 
-	<footer class="footer">
-		<div class="footer-copyright text-center py-3">
-			<span>NITx Developer</span>
-		</div>
+	<footer class="page-footer">
+		<?php require_once 'footer.html.php'; ?>
 	</footer>
 
 </body>

@@ -39,6 +39,13 @@
 
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" href="../view/postBlog.html.php">Post Blog</a>
+						<?php
+						if ( $_SESSION["user"]->getPermissionLevel() < 2) {
+						?>
+							<a class="dropdown-item" href="../view/verifyMe.html.php">Verify My Account</a>
+						<?php
+						}
+						?>
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="../action/logout.php">Log Out</a>
 					</div>

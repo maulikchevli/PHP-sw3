@@ -1,7 +1,12 @@
+<?php 
+require_once '../model/user.php';
+require_once '../model/blog.php';
+require_once '../model/dbConnection.php';
+?>
 <!DOCTYPE html>
 <html land="en">
 <head>
-	<title>NITx-login</title>
+	<title>NITx-ContactUs</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -20,16 +25,11 @@
 	</header>
 
 	<main class="container">
-		<h1>Login</h1>
+		<h1>Contact Us</h1>
 		<form method="post" action="../action/login.php">
 			<div class="form-group">
 				<label for="username">Username</label>
 				<input type="text" class="form-control" id="username" name="username" placeholder="Username">
-			</div>
-
-			<div class="form-group">
-				<label for="password">Password</label>
-				<input type="password" class="form-control" id="password" name="password" placeholder="Password">
 			</div>
 
 			<button type="submit" class="btn btn-outline-success">Login</button>

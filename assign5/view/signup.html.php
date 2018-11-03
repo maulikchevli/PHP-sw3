@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html land="en">
 <head>
 	<title>NITx-Signup</title>
@@ -70,9 +71,7 @@
 	</main>
 
 	<footer class="footer">
-		<div class="footer-copyright text-center py-3">
-			<span>NITx Developer</span>
-		</div>
+		<?php require_once 'footer.html.php'; ?>
 	</footer>
 
 </body>

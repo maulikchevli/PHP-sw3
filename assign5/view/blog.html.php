@@ -103,7 +103,7 @@ if ( !isset( $_SESSION["user"])) {
 
 	<footer class="footer">
 		<div class="footer-copyright text-center py-3">
-			<span>NITx Developer</span>
+			<span>©NITx Developer</span>
 		</div>
 	</footer>
 

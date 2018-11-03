@@ -68,9 +68,7 @@ if ( !isset( $_SESSION["user"]) || $_SESSION["user"]->getPermissionLevel() != 3)
 	</main>
 
 	<footer class="footer">
-		<div class="footer-copyright text-center py-3">
-			<span>NITx Developer</span>
-		</div>
+		<?php require_once 'footer.html.php'; ?>
 	</footer>
 
 	<script src="js/main.js"> </script>
