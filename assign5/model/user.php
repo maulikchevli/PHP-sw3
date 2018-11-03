@@ -487,6 +487,7 @@ class Admin extends Blogger {
 	public function getAllUsers() {
 		$db_delegate = new dbConnection('blog');
 		if ( $db_delegate->getError()) {
+			// TODO make set erorr function
 			$this->error = $db_delegate->getError();
 			return false;
 		}
@@ -506,7 +507,7 @@ class Admin extends Blogger {
 	}
 
 	public function setPermissions( $username, $permission) {
-		if ( $permission != 1 && $permission != 2) {
+		if ( $permission != 0 && $permission != 1 && $permission != 2) {
 			return false;
 		}
 
