@@ -6,7 +6,6 @@
  */
 
 /*
- * TODO Get blog Counter from dataBase on user login
  * TODO update constructor to get details of user if logged in
  */
 
@@ -548,9 +547,6 @@ class Admin extends Blogger {
 }
 
 function searchQuery( $searchQuery) {
-	// TODO add results for blog too
-	// TODO add results based on firstName and LastName
-
 	$db_delegate = new dbConnection('blog');
 	if ( $db_delegate->getError()) {
 		$this->error = $db_delegate->getError();
