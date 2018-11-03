@@ -26,39 +26,45 @@ require_once '../model/dbConnection.php';
 
 	<main class="container">
 		<?php
-		if ( $_SESSION["user"]->isEmailVerified()) {
+		if ( $_SESSION["user"]->getPermissionLevel() > 0) {
+			if ( $_SESSION["user"]->isEmailVerified()) {
 		?>
-			<h1>New post</h1>
-			<form method="post" action="../action/postBlog.php">
-				<div class="form-row">
-					<label class="col-sm-2" for="title">Title :</label>
-					<input type="text" class="col-sm-10 form-control" id="title" name="title" placeholder="Title" required autofocus>
-				</div>
-
-				<div class="form-row">
-					<label class="col-sm-2" for="body">Post :</label>
-					<textarea class="col-sm-10 form-control" rows="5" id="body" name="body" required placeholder="What's up?"></textarea>
-				</div>
-
-				<div class="form-row"> 
-					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" class="btn btn-outline-primary">Submit</button>
-						<button type="reset" class="btn btn-outline-warning">Reset</button>
+				<h1>New post</h1>
+				<form method="post" action="../action/postBlog.php">
+					<div class="form-row">
+						<label class="col-sm-2" for="title">Title :</label>
+						<input type="text" class="col-sm-10 form-control" id="title" name="title" placeholder="Title" required autofocus>
 					</div>
-				</div>
 
-			</form>
+					<div class="form-row">
+						<label class="col-sm-2" for="body">Post :</label>
+						<textarea class="col-sm-10 form-control" rows="5" id="body" name="body" required placeholder="What's up?"></textarea>
+					</div>
+
+					<div class="form-row"> 
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-outline-primary">Submit</button>
+							<button type="reset" class="btn btn-outline-warning">Reset</button>
+						</div>
+					</div>
+
+				</form>
+			<?php
+			}
+			else {
+			?>
+				<div class="alert alert-warning alert-dismissible fade show" role="alert">
+					Verify your email to write your blogs
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
 		<?php
+			}
 		}
 		else {
-		?>
-			<div class="alert alert-warning alert-dismissible fade show" role="alert">
-				Verify your email to write your blogs
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-		<?php
+			echo "You do not have the permission to write a blog!<br>";
+			echo "Contact the admin for further details";
 		}
 		?>
 	</main>
