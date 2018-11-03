@@ -55,7 +55,21 @@ $numOfFollowings = $followingDB->num_rows;
 	<main class="container">
 		<div class="row">
 			<div class="col">
-				<h1><?php echo $details["firstName"] . " " . $details["lastName"]; ?></h1>
+				<h1>
+					<?php echo $details["firstName"] . " " . $details["lastName"]; ?>
+				</h1>
+				<?php
+				if ( $user->getPermissionLevel() == 3) {
+				?>
+					<span class="badge badge-primary badge-pill">Admin</span>
+				<?php
+				}
+				if ( $user->getPermissionLevel() >= 2) {
+				?>
+					<span class="badge badge-light badge-pill">verified &#10003</span>
+				<?php
+				}
+				?>
 			</div>
 
 			<div class="col">
