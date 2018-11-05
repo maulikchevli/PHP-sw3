@@ -1,5 +1,6 @@
 # TODO
 
+- Update search to allow full name
 - Notifications
 	- Follow/Subscription notifd by timestamp
 - Delete and update blog
