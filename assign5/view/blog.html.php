@@ -4,13 +4,6 @@ require_once '../model/User.php';
 require_once '../model/blog.php';
 require_once '../model/dbConnection.php';
 
-// allow only signed up users to view this page
-@session_start();
-if ( !isset( $_SESSION["user"])) {
-	$_SESSION["flashError"] = "Login to view the blog";
-	header( 'Location: ../view/login.html.php');
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -36,6 +29,15 @@ if ( !isset( $_SESSION["user"])) {
 
 	<main class="container">
 		<?php
+		// allow only signed up users to view this page
+		@session_start();
+		if ( !isset( $_SESSION["user"])) {
+			$_SESSION["flashError"] = "Login to view the blog";
+			header( 'Location: ../view/login.html.php');
+		}
+		?>
+
+		<?php
 		$blog = new Blog("","","",$_REQUEST["blogId"]);
 		$numLikes = $blog->getLikeDB()->num_rows;
 		$numComments = $blog->getCommentDB()->num_rows;
@@ -51,7 +53,25 @@ if ( !isset( $_SESSION["user"])) {
 				<!-- Blog Post -->
 				<div class="col-12 jumbotron">
 					<!-- Title -->
-					<h1><?php echo $blog->getTitle(); ?></h1>
+					<h1>
+						<?php echo $blog->getTitle(); ?>
+
+						<!-- Edit blog for owner -->
+						<?php
+						if ( $blog->getOwner() == $_SESSION["user"]->getUsername()) {
+						?>
+							<a class="btn btn-outline-warning" href="#">Edit Post</a>
+							
+						<?php
+						}
+						// for admin
+						if ( ($_SESSION["user"]->getPermissionLevel() == 3) || $blog->getOwner() == $_SESSION["user"]->getUsername()) {
+						?>
+							<a class="btn btn-outline-danger" href="../action/deleteBlog.php?blogId=<?php echo $blog->getBlogId(); ?>">Delete Post</a>
+						<?php
+						}
+						?>
+					</h1>
 					<!-- Author -->
 					<p class="lead">
 						by <a class="col" href="../view/profile.html.php?username=<?php echo $blog->getOwner(); ?>"><?php echo $blog->getOwner(); ?></a>
@@ -109,3 +129,4 @@ if ( !isset( $_SESSION["user"])) {
 
 </body>
 </html>
+

@@ -438,6 +438,25 @@ class Blogger extends User {
 		// Last
 	}
 
+	public function deleteBlog($blogId, $username) {
+		/* Username is added  only for polymorphism */
+
+		$db_delegate = new dbConnection('blog');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "delete from blog where blogId='$blogId'";
+		$result = $db_delegate->update_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		return true;
+	}
+
 	public function likeBlog( $blogId) {
 		$db_delegate = new dbConnection('blog');
 		if ( $db_delegate->getError()) {
@@ -581,9 +600,8 @@ class Admin extends Blogger {
 		return true;
 	}
 
-	public function deleteBlog( Blog $blog) {
-		$blogId = $blog->getBlogId();
-
+	public function deleteBlog($blogId, $username) {
+		// TODO add notification to user whose blog is deleted
 		$db_delegate = new dbConnection('blog');
 		if ( $db_delegate->getError()) {
 			$this->error = $db_delegate->getError();
