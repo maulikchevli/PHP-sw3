@@ -2,6 +2,7 @@
 require_once '../model/user.php';
 require_once '../model/blog.php';
 require_once '../model/dbConnection.php';
+
 ?>
 <!DOCTYPE html>
 <html land="en">
@@ -25,6 +26,15 @@ require_once '../model/dbConnection.php';
 	</header>
 
 	<main class="container">
+		<?php
+		$details = $_SESSION["user"]->getDetails();
+
+		if ( $details["emailVerified"] == 0 ) {
+			$_SESSION["flashError"] = "Verify your email first";
+			header( 'Location: ../view/profile.html.php?username='.$details["username"]);
+		}
+		?>
+
 		<h1>Details</h1>
 		<p>Provide all the details so that admin can verify you</p>
 		<form method="post" action="../action/verifyRequest.php">
