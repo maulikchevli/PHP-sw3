@@ -35,6 +35,15 @@
 				}
 				?>
 
+				<li class="nav-item">
+					<?php
+						$count = $_SESSION["user"]->getNumNotifs();
+					?>
+					<a class="nav-link btn btn-outline-primary" href="../view/notifications.html.php">
+						Notification<span class="badge badge-dark"><?php echo $count; ?></span>
+					</a>
+				</li>
+
 				<li class="nav-item dropdown btn-group">
 					<a class="nav-link btn btn-outline-info"
 					   href="../view/profile.html.php?username=<?php echo $_SESSION['user']->getUsername(); ?>">

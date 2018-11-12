@@ -510,6 +510,42 @@ class Blogger extends User {
 		
 		return true;
 	}
+
+	public function getNotifications() {
+		$db_delegate = new dbConnection('blog');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "select * from notifications where recipient='$this->username' and unread=true";
+		$result = $db_delegate->select_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+		
+		return $result;
+	}
+
+	public function getNumNotifs() {
+		$db_delegate = new dbConnection('blog');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "select count(*) as count from notifications where recipient='$this->username' and unread=true";
+		$result = $db_delegate->select_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+		
+		$count = $result->fetch_assoc();
+		$count = $count["count"];
+		return $count;
+	}
 }
 
 class Admin extends Blogger {
