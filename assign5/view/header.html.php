@@ -54,6 +54,7 @@
 
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" href="../view/postBlog.html.php">Post Blog</a>
+						<a class="dropdown-item" href="../view/notificationLog.html.php">Notification Log</a>
 						<?php
 						if ( $_SESSION["user"]->getPermissionLevel() < 2) {
 						?>

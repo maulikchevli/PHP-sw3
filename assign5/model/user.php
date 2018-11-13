@@ -528,7 +528,24 @@ class Blogger extends User {
 		// Update table to reset unread column
 		$sql_query = "update notifications set unread=false where unread=true and recipient='$this->username'";
 		// No error control here
-		$db_delegate->select_query( $sql_query);
+		$db_delegate->update_query( $sql_query);
+		
+		return $result;
+	}
+
+	public function notificationLog() {
+		$db_delegate = new dbConnection('blog');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "select * from notifications where recipient='$this->username' order by time desc";
+		$result = $db_delegate->select_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
 		
 		return $result;
 	}

@@ -8,7 +8,7 @@ require_once '../model/notification.php';
 @session_start();
 $user = $_SESSION["user"];
 
-$notificationDB = $user->getNotifications();
+$notificationDB = $user->notificationLog();
 
 ?>
 
@@ -34,7 +34,7 @@ $notificationDB = $user->getNotifications();
 	</header>
 
 	<main class="container">
-		<h1>New Notifications</h1>
+		<h1>Notifications Log</h1>
 		<ul>
 			<?php 
 				while ( $notification = $notificationDB->fetch_assoc()) {
