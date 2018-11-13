@@ -14,6 +14,8 @@ class User {
 	protected $permissionLevel = 0;
 	protected $username;
 	protected $emailVerified = false;
+
+	protected $lastLogin;
 	// Other Info
 
 	public function __construct( $username = "") {
@@ -32,12 +34,19 @@ class User {
 		return $this->permissionLevel;
 	}
 
+	public function getLastLogin() {
+		return $this->lastLogin;
+	}
+
 	public function isEmailVerified() {
 		return $this->emailVerified;
 	}
 
 	protected function setPermissionLevel( $permission) {
 		$this->permissionLevel = $permission;
+	}
+
+	public function setLastLogin( $time) {
 	}
 
 	public function getDetails() {
@@ -47,7 +56,7 @@ class User {
 			return false;
 		}
 
-		$sql_query = "select username,firstName,lastName,email,birthDate,bio,emailVerified,userType from user where username='$this->username'";
+		$sql_query = "select username,firstName,lastName,email,birthDate,bio,emailVerified,userType,lastLogin from user where username='$this->username'";
 		$result = $db_delegate->select_query($sql_query);
 		if ($db_delegate->getError()) {
 			$this->error = $db_delegate->getError();
@@ -57,6 +66,7 @@ class User {
 		$db_userInfo = $result->fetch_assoc();
 		$this->emailVerified = $db_userInfo["emailVerified"];
 		$this->permissionLevel = $db_userInfo["userType"];
+		$this->lastLogin = $db_userInfo["lastLogin"];
 
 		return $db_userInfo;
 	}
@@ -92,6 +102,7 @@ class User {
 
 		$this->permissionLevel = $db_userInfo["userType"];
 		$this->emailVerified = $db_userInfo["emailVerified"];
+		$this->lastLogin = $db_userInfo["lastLogin"];
 
 		return true;
 	}
