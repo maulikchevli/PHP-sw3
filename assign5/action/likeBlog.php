@@ -11,7 +11,6 @@ if ( $user->likeBlog( $_REQUEST["blogId"])) {
 	$blog = new Blog( "", "", "", $_REQUEST["blogId"]);
 
 	if (! ($blog->getOwner() == $user->getUsername())) {
-
 		$notifHandler = new Notification( $user->getUsername(), $blog->getOwner(), "like", $blog->getBlogId());
 		
 		// handle error state

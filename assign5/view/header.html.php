@@ -40,7 +40,7 @@
 						$count = $_SESSION["user"]->getNumNotifs();
 					?>
 					<a class="nav-link btn btn-outline-primary" href="../view/notifications.html.php">
-						Notification<span class="badge badge-dark"><?php echo $count; ?></span>
+						Notification <span class="badge badge-primary"><?php echo $count; ?></span>
 					</a>
 				</li>
 
