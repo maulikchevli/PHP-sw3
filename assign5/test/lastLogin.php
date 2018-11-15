@@ -9,5 +9,6 @@ $details = $user->getDetails();
 $lastLogin = new DateTime( $user->getLastLogin());
 $now = new DateTime("now");
 
+
 var_dump( $now > $lastLogin);
 ?>

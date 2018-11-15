@@ -46,7 +46,24 @@ class User {
 		$this->permissionLevel = $permission;
 	}
 
-	public function setLastLogin( $time) {
+	public function updateLastLogin() {
+		$now = new DateTime('now');
+		$this->lastLogin = $now->format('Y-m-d H:i:s');
+
+		$db_delegate = new dbConnection('blog');
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+
+		$sql_query = "update user set lastLogin='$this->lastLogin' where username='$this->username'";
+		$result = $db_delegate->update_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+		
+		return true;
 	}
 
 	public function getDetails() {
@@ -311,10 +328,6 @@ class Blogger extends User {
 		$this->setPermissionLevel( $permissionLevel);
 	}
 
-	public function getNewNotifs() {
-		// Implement after blog and user, html
-	}
-
 	public function getFollowers() {
 		$db_delegate = new dbConnection('blog');
 		if ( $db_delegate->getError()) {
@@ -362,8 +375,6 @@ class Blogger extends User {
 			$this->error = $db_delegate->getError();
 			return false;
 		}
-
-		// TODO notifications of follow
 
 		return true;
 	}
@@ -529,7 +540,11 @@ class Blogger extends User {
 			return false;
 		}
 
-		$sql_query = "select * from notifications where recipient='$this->username' and unread=true";
+		$sql_query = "select sender,reference,type,time from notifications where recipient='$this->username' and unread=true 
+		              union
+					  select owner as sender,blogid as reference,'new post' as type,time from blog where time > '$this->lastLogin' and owner in 
+		              ( select username from followers where follower='$this->username') order by time desc";
+
 		$result = $db_delegate->select_query( $sql_query);
 		if ( $db_delegate->getError()) {
 			$this->error = $db_delegate->getError();
@@ -540,6 +555,9 @@ class Blogger extends User {
 		$sql_query = "update notifications set unread=false where unread=true and recipient='$this->username'";
 		// No error control here
 		$db_delegate->update_query( $sql_query);
+
+		// also update the lastLogin of user
+		$this->updateLastLogin();
 		
 		return $result;
 	}
@@ -551,7 +569,10 @@ class Blogger extends User {
 			return false;
 		}
 
-		$sql_query = "select * from notifications where recipient='$this->username' order by time desc";
+		$sql_query = "select sender,reference,type,time from notifications where recipient='$this->username' 
+		              union
+					  select owner as sender,blogid as reference,'new post' as type,time from blog where owner in 
+		              ( select username from followers where follower='$this->username') order by time desc";
 		$result = $db_delegate->select_query( $sql_query);
 		if ( $db_delegate->getError()) {
 			$this->error = $db_delegate->getError();
@@ -574,9 +595,20 @@ class Blogger extends User {
 			$this->error = $db_delegate->getError();
 			return false;
 		}
-		
 		$count = $result->fetch_assoc();
 		$count = $count["count"];
+
+		$sql_query = "select count(*) as count from blog where time > '$this->lastLogin' and owner in 
+		              ( select username from followers where follower='$this->username')";
+		$result = $db_delegate->select_query( $sql_query);
+		if ( $db_delegate->getError()) {
+			$this->error = $db_delegate->getError();
+			return false;
+		}
+		$newBlogs = $result->fetch_assoc();
+		$newBlogs = $newBlogs["count"];
+
+		$count = $count + $newBlogs;
 		return $count;
 	}
 }

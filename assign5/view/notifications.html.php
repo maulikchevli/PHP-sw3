@@ -38,6 +38,11 @@ $notificationDB = $user->getNotifications();
 		<ul>
 			<?php 
 				while ( $notification = $notificationDB->fetch_assoc()) {
+					switch( $notification['type']) {
+						case 'like':
+						case 'comment':
+						case 'new post':
+					}
 			?>
 
 					<li>
