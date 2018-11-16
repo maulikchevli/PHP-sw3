@@ -1,3 +1,5 @@
+<script src="js/search.js"></script>
+
 <div class="footer-copyright text-center py-3">
 	©NITx Developer
 </div>

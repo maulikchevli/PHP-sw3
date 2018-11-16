@@ -26,13 +26,13 @@ require_once '../model/dbConnection.php';
 
 	<main class="container">
 		<h1>Contact Us</h1>
-		<form method="post" action="../action/login.php">
+		<form method="post" action="#">
 			<div class="form-group">
 				<label for="username">Username</label>
 				<input type="text" class="form-control" id="username" name="username" placeholder="Username">
 			</div>
 
-			<button type="submit" class="btn btn-outline-success">Login</button>
+			<button type="submit" class="btn btn-outline-success">Contact Me
 		</form>
 	</main>
 

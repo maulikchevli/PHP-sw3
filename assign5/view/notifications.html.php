@@ -40,13 +40,19 @@ $notificationDB = $user->getNotifications();
 				while ( $notification = $notificationDB->fetch_assoc()) {
 					switch( $notification['type']) {
 						case 'like':
+							$displayMsg = $notification['sender'] . " liked your post number :" . $notification['reference'];
+							break;
 						case 'comment':
+							$displayMsg = $notification['sender'] . " commented on your post number :" . $notification['reference'];
+							break;
 						case 'new post':
+							$displayMsg = $notification['sender'] . " wrote a new blog, post number :" . $notification['reference'];
+							break;
 					}
 			?>
 
 					<li>
-						<?php echo $notification['sender'] . " " . $notification['type'] . " your post " . $notification["reference"]; ?>
+						<?php echo $displayMsg; ?>
 					</li>
 			<?php
 				}

@@ -34,3 +34,35 @@ footer {
 	right: 0px;
 }
 
+.txtHint {
+	display: none;
+	position: absolute;
+
+	margin-left: 7%;
+	margin-top: 0;
+	float: left;
+	position: relative;
+	width : 60%;
+	background-color: rgba(192, 192, 192, 0.5);
+	border-style: solid;
+	border-width: medium;
+	border-color: orange;
+	border-top-style: none;
+}
+
+#txtHint {
+	list-style-type: none;
+	margin: 0;
+	padding-left: 0;
+}
+
+#txtHint li {
+	border-style: solid;
+	border-width: thin;
+	padding: 5px;
+}
+
+#txtHint li:hover {
+	background-color: rgba(200,200,200,0.5);
+}
+

@@ -9,7 +9,10 @@
 
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<form class="form-inline mx-auto" action="../view/search.html.php" method="post">
-			<input class="form-control" type="search" name="query" placeholder="Search profile or blog title" required>
+			<input oninput="showHint(this.value)" class="form-control" type="search" name="query" placeholder="Search profile or blog title" required>
+			<div class="txtHint" id="hintBox">
+				<ul id="txtHint"></ul>
+			</div>
 		</form>
 
 		<ul class="navbar-nav ml-auto">

@@ -122,6 +122,7 @@ require_once '../model/dbConnection.php';
 	</main>
 
 	<footer class="footer">
+	<script src="js/search.js"></script>
 		<div class="footer-copyright text-center py-3">
 			<span>©NITx Developer</span>
 		</div>
